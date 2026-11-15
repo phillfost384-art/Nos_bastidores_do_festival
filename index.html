@@ -3,142 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nos Bastidores de um Festival | D.W.B.D.</title>
+  <title>Nos Bastidores de um Festival | Frequência Livre</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Menu de Navegação -->
+  <!-- Navegação Estilo Festival -->
   <header class="navbar">
-    <div class="logo">🎵 Frequência Livre</div>
+    <div class="logo">⚡ FREQUÊNCIA LIVRE</div>
     <nav>
       <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#artistas">Artistas & Palcos</a></li>
-        <li><a href="#bilhetes">Bilhetes</a></li>
-        <li><a href="#base-dados">Base de Dados</a></li>
-        <li><a href="#projeto">Ficha do Projeto</a></li>
+        <li><a href="#inicio">Home</a></li>
+        <li><a href="#cartaz">Cartaz & Palcos</a></li>
+        <li><a href="#bilhetes">Bilheteira</a></li>
+        <li><a href="#basedados">Base de Dados</a></li>
+        <li><a href="#projeto">Projeto</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Secção Principal (Hero) -->
+  <!-- Hero Section Artística -->
   <section id="inicio" class="hero">
-    <div class="hero-content">
-      <span class="badge">Associação Cultural Frequência Livre</span>
-      <h1>NOS BASTIDORES DE UM FESTIVAL</h1>
-      <p>Sistema integrado de gestão de programação, alinhamentos, artistas e bilheteira para o festival de verão.</p>
-      <a href="#artistas" class="btn">Explorar Cartaz</a>
+    <div class="hero-badge">✨ Edição Especial 2026</div>
+    <h1>NOS BASTIDORES<br><span>DO FESTIVAL</span></h1>
+    <p>A magia da música ao vivo e a engenharia invisível da programação e logística cultural.</p>
+    <div class="hero-cta">
+      <a href="#cartaz" class="btn-primary">Ver Lineup</a>
+      <a href="#basedados" class="btn-secondary">Arquitetura BD</a>
     </div>
   </section>
 
-  <!-- Artistas, Estilos de Música e Palcos -->
-  <section id="artistas" class="section">
-    <h2>🎸 Artistas, Estilos & Palcos</h2>
-    <p class="section-desc">Gestão em tempo real da programação artística associada a cada palco do festival.</p>
-    
+  <!-- Secção Artistas, Estilos & Palcos -->
+  <section id="cartaz" class="section">
+    <div class="section-title">
+      <h2>🎸 Cartaz, Estilos & Palcos</h2>
+      <p>Mapeamento de artistas, géneros musicais e alinhamentos por palco.</p>
+    </div>
+
     <div class="grid-3">
-      <div class="card">
-        <span class="tag">Palco Principal</span>
+      <div class="artist-card">
+        <span class="stage-tag">Palco Principal</span>
         <h3>The Soundwaves</h3>
-        <p><strong>Estilo:</strong> Indie Rock / Alternativo</p>
-        <p>Horário: Sexta-feira, 22:00</p>
+        <p class="genre">Indie Rock / Alternativo</p>
+        <div class="card-footer">
+          <span>📅 Sexta, 22:00</span>
+          <span class="status">Confirmado</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="tag">Palco Eletrónica</span>
+
+      <div class="artist-card">
+        <span class="stage-tag neon-cyan">Palco Eletrónica</span>
         <h3>DJ Neon Pulse</h3>
-        <p><strong>Estilo:</strong> Tech House / EDM</p>
-        <p>Horário: Sábado, 01:00</p>
+        <p class="genre">Tech House / EDM</p>
+        <div class="card-footer">
+          <span>📅 Sábado, 01:00</span>
+          <span class="status">Confirmado</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="tag">Palco Vila Cultural</span>
+
+      <div class="artist-card">
+        <span class="stage-tag neon-pink">Vila Cultural</span>
         <h3>Acoustic Sunset</h3>
-        <p><strong>Estilo:</strong> Folk / Acoustic</p>
-        <p>Horário: Domingo, 18:30</p>
+        <p class="genre">Folk / World Music</p>
+        <div class="card-footer">
+          <span>📅 Domingo, 18:30</span>
+          <span class="status">Confirmado</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Bilhetes à Venda -->
-  <section id="bilhetes" class="section bg-alt">
-    <h2>🎟️ Bilhetes & Acessos</h2>
+  <!-- Bilheteira -->
+  <section id="bilhetes" class="section bg-glow">
+    <div class="section-title">
+      <h2>🎟️ Bilheteira Online</h2>
+      <p>Gestão de acessos e passes gerais para o festival.</p>
+    </div>
+
     <div class="grid-2">
-      <div class="card-ticket">
+      <div class="ticket-card">
         <h3>Passe Geral (3 Dias)</h3>
-        <p class="price">45€</p>
-        <p>Acesso total a todos os palcos, zonas de campismo e áreas reservadas da Associação Frequência Livre.</p>
-        <button class="btn-buy" onclick="alert('Simulação: Bilhete adicionado ao carrinho!')">Comprar Bilhete</button>
+        <div class="price">45€</div>
+        <p>Acesso total a todos os palcos, campismo e áreas exclusivas da Associação Frequência Livre.</p>
+        <button class="btn-primary" onclick="alert('Simulação de compra efetuada com sucesso!')">Comprar Passe</button>
       </div>
-      <div class="card-ticket">
+
+      <div class="ticket-card">
         <h3>Bilhete Diário</h3>
-        <p class="price">20€</p>
-        <p>Acesso exclusivo aos concertos e recintos do dia selecionado.</p>
-        <button class="btn-buy" onclick="alert('Simulação: Bilhete adicionado ao carrinho!')">Comprar Bilhete</button>
+        <div class="price">20€</div>
+        <p>Acesso exclusivo aos concertos e recintos do dia selecionado pelo espetador.</p>
+        <button class="btn-primary" onclick="alert('Simulação de compra efetuada com sucesso!')">Comprar Diário</button>
       </div>
     </div>
   </section>
 
-  <!-- Arquitetura da Base de Dados (Requisito D.W.B.D.) -->
-  <section id="base-dados" class="section">
-    <h2>🗄️ Arquitetura da Base de Dados Relacional</h2>
-    <p class="section-desc">Esquema conceptual e lógico desenvolvido para a gestão do festival.</p>
-    
-    <div class="db-grid">
-      <div class="db-table">
-        <h4>📋 Tabela: Artistas</h4>
+  <!-- Base de Dados (Requisito Académico D.W.B.D.) -->
+  <section id="basedados" class="section">
+    <div class="section-title">
+      <h2>🗄️ Estrutura da Base de Dados</h2>
+      <p>Modelo relacional normalizado para suporte à gestão do festival.</p>
+    </div>
+
+    <div class="db-container">
+      <div class="db-box">
+        <h4>📋 Artistas</h4>
         <ul>
-          <li>id_artista (PK)</li>
+          <li><strong>id_artista</strong> (PK)</li>
           <li>nome_banda</li>
           <li>estilo_musical</li>
-          <li>contacto_representante</li>
+          <li>rider_tecnico</li>
         </ul>
       </div>
-      <div class="db-table">
-        <h4>🎪 Tabela: Palcos</h4>
+
+      <div class="db-box">
+        <h4>🎪 Palcos</h4>
         <ul>
-          <li>id_palco (PK)</li>
+          <li><strong>id_palco</strong> (PK)</li>
           <li>nome_palco</li>
-          <li>capacidade_maxima</li>
+          <li>capacidade</li>
           <li>localizacao</li>
         </ul>
       </div>
-      <div class="db-table">
-        <h4>⏰ Tabela: Horários / Atuações</h4>
+
+      <div class="db-box">
+        <h4>⏰ Atuações</h4>
         <ul>
-          <li>id_atuacao (PK)</li>
+          <li><strong>id_atuacao</strong> (PK)</li>
           <li>id_artista (FK)</li>
           <li>id_palco (FK)</li>
-          <li>data_hora_inicio</li>
+          <li>data_hora</li>
         </ul>
       </div>
-      <div class="db-table">
-        <h4>💳 Tabela: Bilhetes</h4>
+
+      <div class="db-box">
+        <h4>💳 Bilhetes</h4>
         <ul>
-          <li>id_bilhete (PK)</li>
+          <li><strong>id_bilhete</strong> (PK)</li>
           <li>tipo_passe</li>
           <li>preco</li>
-          <li>estado_pagamento</li>
+          <li>estado</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Ficha do Projeto Escolar -->
-  <section id="projeto" class="section bg-alt">
-    <h2>📚 Identificação Académica</h2>
-    <div class="info-box">
-      <p><strong>Projeto:</strong> NOS BASTIDORES DE UM FESTIVAL</p>
+  <!-- Ficha Académica -->
+  <section id="projeto" class="section bg-glow">
+    <div class="section-title">
+      <h2>📚 Ficha Técnica do Projeto</h2>
+    </div>
+    <div class="academic-box">
+      <p><strong>Projeto:</strong> Nos Bastidores de um Festival</p>
       <p><strong>Cliente:</strong> Associação Cultural Frequência Livre</p>
-      <p><strong>Curso:</strong> 10.º Técnico de Desenvolvimento de Sistemas</p>
       <p><strong>Disciplina:</strong> Desenvolvimento Web e Bases de Dados (D.W.B.D.)</p>
+      <p><strong>Curso:</strong> 10.º Técnico de Desenvolvimento de Sistemas</p>
       <p><strong>Professor:</strong> João Baeta</p>
-      <p><strong>Trabalho:</strong> Avaliação N.º 2</p>
+      <p><strong>Avaliação:</strong> N.º 2</p>
     </div>
   </section>
 
   <!-- Rodapé -->
   <footer>
-    <p>© 2026 Associação Cultural Frequência Livre • Desenvolvido para a disciplina de D.W.B.D.</p>
+    <p>© 2026 Associação Cultural Frequência Livre • Desenvolvido para fins académicos.</p>
   </footer>
 
 </body>
