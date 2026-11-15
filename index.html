@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nos Bastidores de um Festival | Frequência Livre</title>
+  <title>Frequência Livre | Festival Management Platform</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #080a10;
-      --surface: #111622;
-      --surface-hover: #182032;
-      --primary: #8b5cf6;
-      --primary-hover: #7c3aed;
+      --bg: #07090f;
+      --surface: #101522;
+      --surface-hover: #171f33;
+      --primary: #7c3aed;
+      --primary-hover: #6d28d9;
       --accent: #06b6d4;
       --pink: #ec4899;
       --success: #10b981;
@@ -36,13 +36,13 @@
       line-height: 1.6;
     }
 
-    /* Navegação */
+    /* Navbar Profissional */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(8, 10, 16, 0.88);
-      backdrop-filter: blur(14px);
+      background: rgba(7, 9, 15, 0.85);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       padding: 1rem 5%;
       display: flex;
@@ -53,20 +53,18 @@
 
     .brand {
       font-weight: 800;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: 1.2rem;
       background: linear-gradient(90deg, var(--accent), var(--primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
     }
 
     .nav-links {
       display: flex;
-      gap: 0.5rem;
+      gap: 1.5rem;
       list-style: none;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
     .nav-links a {
@@ -74,49 +72,132 @@
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
-      padding: 0.5rem 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-buttons {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    /* Botões */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.2rem;
       border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--pink));
+      color: white;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       transition: all 0.2s;
     }
+    .icon-btn:hover { border-color: var(--accent); background: var(--surface-hover); }
 
-    .nav-links a:hover {
-      color: var(--text);
-      background: var(--surface);
+    /* Modal de Autenticação Obrigatória */
+    #authModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 10, 0.9);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+      padding: 1rem;
     }
 
-    .user-pill {
-      background: rgba(139, 92, 246, 0.15);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      color: #c4b5fd;
-      padding: 0.4rem 0.9rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+
+    /* Painel Lateral (Sidebar Drawer) */
+    #sidebarDrawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100%;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 2500;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    #sidebarDrawer.open { right: 0; }
+
+    .drawer-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .drawer-footer {
+      padding: 1.2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
     }
 
     /* Hero */
     .hero {
-      padding: 8.5rem 5% 4.5rem;
+      padding: 9rem 5% 5rem;
       text-align: center;
-      background: radial-gradient(circle at top, rgba(139, 92, 246, 0.18), transparent 65%);
-    }
-
-    .hero-tag {
-      display: inline-block;
-      padding: 0.35rem 1rem;
-      border-radius: 50px;
-      background: rgba(6, 182, 212, 0.12);
-      border: 1px solid rgba(6, 182, 212, 0.35);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.2rem;
+      background: radial-gradient(circle at top, rgba(124, 58, 237, 0.18), transparent 65%);
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 1rem;
@@ -130,55 +211,10 @@
 
     .hero p {
       color: var(--muted);
-      max-width: 650px;
+      max-width: 600px;
       margin: 0 auto 2rem;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
-
-    /* Botões Gerais */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.4rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--pink));
-      color: white;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5); }
-
-    .btn-outline {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    .btn-waitlist {
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--warning);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      width: 100%;
-    }
-    .btn-waitlist:hover { background: var(--warning); color: #000; }
-
-    .btn-buy {
-      background: linear-gradient(135deg, var(--accent), var(--primary));
-      color: white;
-      width: 100%;
-    }
-    .btn-buy:hover { opacity: 0.92; transform: translateY(-1px); }
 
     /* Secções */
     .section {
@@ -188,22 +224,24 @@
     }
 
     .section-header {
-      text-align: center;
       margin-bottom: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .section-header h2 {
       font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 0.4rem;
     }
 
-    .section-header p { color: var(--muted); }
+    .section-header p { color: var(--muted); font-size: 0.95rem; }
 
-    /* Barra de Abas e Filtros Bonitos */
+    /* Filtros & Abas */
     .filter-bar {
       display: flex;
-      justify-content: center;
       gap: 0.6rem;
       flex-wrap: wrap;
       margin-bottom: 2rem;
@@ -213,55 +251,30 @@
       background: var(--surface);
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1.1rem;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.2s;
     }
+    .pill-btn:hover, .pill-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    .pill-btn:hover {
-      background: var(--surface-hover);
-      color: var(--text);
-    }
-
-    .pill-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
-    }
-
-    /* Grelhas e Cartões */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 2rem;
-    }
+    /* Grelhas & Cartões */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 1.6rem;
-      transition: all 0.25s ease;
+      padding: 1.8rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
     }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(139, 92, 246, 0.4);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
-    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(124, 58, 237, 0.4); }
 
     .badge {
       display: inline-block;
@@ -273,102 +286,27 @@
       margin-bottom: 0.8rem;
       width: fit-content;
     }
+    .badge-purple { background: rgba(124,58,237,0.18); color: #c4b5fd; }
+    .badge-cyan { background: rgba(6,182,212,0.18); color: #67e8f9; }
+    .badge-green { background: rgba(16,185,129,0.18); color: #6ee7b7; }
+    .badge-red { background: rgba(239,68,68,0.18); color: #fca5a5; }
 
-    .badge-purple { background: rgba(139, 92, 246, 0.18); color: #c4b5fd; }
-    .badge-cyan { background: rgba(6, 182, 212, 0.18); color: #67e8f9; }
-    .badge-pink { background: rgba(236, 72, 153, 0.18); color: #f9a8d4; }
-    .badge-green { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; }
-    .badge-red { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
-
-    /* Eventos do Dia */
-    .event-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .event-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .event-time {
-      font-weight: 800;
-      color: var(--accent);
-      font-size: 1.05rem;
-      min-width: 110px;
-    }
-
-    /* Formulários & Cadastro */
-    .form-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
+    /* Formulários */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; }
     .form-control {
       width: 100%;
       padding: 0.75rem 1rem;
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--text);
       font-size: 0.95rem;
       outline: none;
     }
-
     .form-control:focus { border-color: var(--accent); }
 
-    /* Tabelas da Base de Dados */
-    .db-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-    }
-
-    th, td {
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      color: var(--accent);
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    td { color: var(--muted); }
-
-    /* Notificação Flutuante (Toast) */
+    /* Toast Flutuante */
     #toast {
       position: fixed;
       bottom: 25px;
@@ -383,211 +321,234 @@
       font-size: 0.92rem;
       transform: translateY(150%);
       transition: transform 0.3s ease;
-      z-index: 2000;
+      z-index: 4000;
     }
     #toast.show { transform: translateY(0); }
 
-    footer {
-      text-align: center;
-      padding: 3rem 5%;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.88rem;
-      margin-top: 3rem;
-    }
+    footer { text-align: center; padding: 3rem 5%; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; margin-top: 4rem; }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- 1. MODAL DE AUTENTICAÇÃO OBRIGATÓRIA (Bloqueia a página até criar conta) -->
+  <div id="authModal">
+    <div class="modal-box" id="authBoxContent">
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <h2 style="font-size:1.8rem; font-weight:800; margin-bottom:0.4rem;">Bem-vindo 👋</h2>
+        <p style="color:var(--muted); font-size:0.9rem;" id="authSubtitle">Para aceder à plataforma e gerir os seus bilhetes, efetue o registo obrigatório.</p>
+      </div>
+
+      <!-- Passo 1: Registo -->
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Nome Completo</label>
+          <input type="text" id="authName" class="form-control" placeholder="Ex: Gonçalo Ribeiro" required>
+        </div>
+        <div class="form-group">
+          <label>Endereço de Email</label>
+          <input type="email" id="authEmail" class="form-control" placeholder="exemplo@email.pt" required>
+        </div>
+        <div class="form-group">
+          <label>Palavra-passe</label>
+          <input type="password" id="authPass" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Continuar com Registo</button>
+      </form>
+
+      <!-- Passo 2: Confirmação por Código de Email (Oculto inicialmente) -->
+      <form id="verifyForm" style="display:none;" onsubmit="handleVerify(event)">
+        <div style="background: rgba(6,182,212,0.1); border:1px solid rgba(6,182,212,0.3); padding:1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#67e8f9;">
+          📧 <strong>Simulação de Email:</strong> Enviámos um código de confirmação para o seu email.<br>
+          Código de acesso simulado: <strong id="simulatedCodeDisplay" style="color:white; font-size:1rem;"></strong>
+        </div>
+        <div class="form-group">
+          <label>Insira o Código de Verificação</label>
+          <input type="text" id="verificationCodeInput" class="form-control" placeholder="Ex: 4829" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Confirmar Conta e Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. NAVBAR PROFISSIONAL -->
   <header class="navbar">
     <div class="brand">⚡ FREQUÊNCIA LIVRE</div>
     <ul class="nav-links">
-      <li><a href="#artistas">Artistas & Estilos</a></li>
-      <li><a href="#eventos">Eventos do Dia</a></li>
-      <li><a href="#bilhetes">Bilheteira & Espera</a></li>
-      <li><a href="#cadastro">Cadastro</a></li>
-      <li><a href="#basedados">Base de Dados</a></li>
+      <li><a href="#artistas">Lineup & Artistas</a></li>
+      <li><a href="#bilhetes">Bilheteira</a></li>
+      <li><a href="#admin" id="adminNavLink" style="display:none; color:var(--accent);">⚙️ Painel Admin</a></li>
     </ul>
-    <div class="user-pill" id="activeUserDisplay">👤 Visitante</div>
+    <div class="nav-buttons">
+      <button class="icon-btn" onclick="toggleSidebar()">
+        🛒 <span id="cartCountBadge" style="background:var(--primary); color:white; padding:0.1rem 0.4rem; border-radius:50px; font-size:0.75rem;">0</span>
+      </button>
+      <button class="icon-btn" onclick="toggleSidebar()">
+        👤 <span id="navUserName">Conta</span>
+      </button>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-tag">Associação Cultural Frequência Livre • Edição 2026</div>
-    <h1>NOS BASTIDORES<br><span>DE UM FESTIVAL</span></h1>
-    <p>Plataforma completa de gestão de espetadores, reservas de bilhetes, fila de espera automática, programação artística e base de dados relacional.</p>
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-      <a href="#bilhetes" class="btn btn-primary">🎟️ Reservar Bilhetes</a>
-      <a href="#cadastro" class="btn btn-outline">👤 Criar Conta de Espetador</a>
+  <!-- 3. PAINEL LATERAL OPCIONAL (DRAWER) -->
+  <div id="sidebarDrawer">
+    <div class="drawer-header">
+      <h3 style="font-size:1.1rem; font-weight:700;">Painel do Utilizador</h3>
+      <button onclick="toggleSidebar()" style="background:none; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer;">✕</button>
     </div>
+    <div class="drawer-body">
+      <div style="margin-bottom:1.5rem;">
+        <h4 style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; margin-bottom:0.5rem;">Detalhes da Conta</h4>
+        <p style="font-weight:600;" id="drawerName">-</p>
+        <p style="font-size:0.85rem; color:var(--muted);" id="drawerEmail">-</p>
+      </div>
+
+      <div style="margin-bottom:1.5rem;">
+        <h4 style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; margin-bottom:0.5rem;">Preferências de Idioma</h4>
+        <select id="langSelect" class="form-control" onchange="changeLanguage(this.value)">
+          <option value="pt">🇵🇹 Português (PT)</option>
+          <option value="en">🇬🇧 English (EN)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:1.5rem;">
+        <h4 style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; margin-bottom:0.5rem;">Os Meus Bilhetes Reservados</h4>
+        <div id="drawerBookingsList" style="display:flex; flex-direction:column; gap:0.6rem;">
+          <p style="color:var(--muted); font-size:0.85rem;">Ainda sem reservas.</p>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-size:0.85rem; color:var(--muted); text-transform:uppercase; margin-bottom:0.5rem;">Fila de Espera Ativa</h4>
+        <div id="drawerWaitlistList" style="display:flex; flex-direction:column; gap:0.6rem;">
+          <p style="color:var(--muted); font-size:0.85rem;">Nenhuma fila de espera.</p>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-outline" style="width:100%; border-color:var(--danger); color:#fca5a5;" onclick="logoutUser()">Terminar Sessão</button>
+    </div>
+  </div>
+
+  <!-- 4. HERO SECTION -->
+  <section class="hero">
+    <span style="display:inline-block; padding:0.3rem 0.9rem; border-radius:50px; background:rgba(6,182,212,0.1); border:1px solid rgba(6,182,212,0.3); color:var(--accent); font-size:0.8rem; font-weight:700; margin-bottom:1rem;">Gestão Cultural Profissional</span>
+    <h1>NOS BASTIDORES<br><span>DO FESTIVAL</span></h1>
+    <p>Plataforma avançada para controlo de programação artística, bilheteira inteligente, lista de espera em tempo real e preferências de espetadores.</p>
   </section>
 
-  <!-- 1. Artistas e Estilos Musicais -->
+  <!-- 5. ARTISTAS E LOCAIS (LINEUP) -->
   <section id="artistas" class="section">
     <div class="section-header">
-      <h2>🎸 Artistas & Estilos Musicais</h2>
-      <p>Filtra por género musical ou palco para explorares o cartaz completo</p>
+      <div>
+        <h2>🎸 Programação & Artistas</h2>
+        <p>Explore o alinhamento de artistas, palcos e géneros musicais</p>
+      </div>
+      <div class="filter-bar" id="genreFilters" style="margin-bottom:0;">
+        <button class="pill-btn active" onclick="filterArtists('todos', this)">Todos</button>
+        <button class="pill-btn" onclick="filterArtists('Rock', this)">Rock</button>
+        <button class="pill-btn" onclick="filterArtists('Eletrónica', this)">Eletrónica</button>
+        <button class="pill-btn" onclick="filterArtists('Hip-Hop', this)">Hip-Hop</button>
+      </div>
     </div>
 
-    <div class="filter-bar" id="genreFilters">
-      <button class="pill-btn active" onclick="filterArtists('todos', this)">Todos os Estilos</button>
-      <button class="pill-btn" onclick="filterArtists('Rock', this)">Indie & Rock</button>
-      <button class="pill-btn" onclick="filterArtists('Eletrónica', this)">Eletrónica & DJ</button>
-      <button class="pill-btn" onclick="filterArtists('Hip-Hop', this)">Hip-Hop & Urban</button>
-      <button class="pill-btn" onclick="filterArtists('Folk', this)">Folk & Acústico</button>
-    </div>
-
-    <div class="grid-3" id="artistsContainer"></div>
+    <div class="grid-3" id="artistsContainer" style="margin-top:2rem;"></div>
   </section>
 
-  <!-- 2. Eventos Paralelos e Programação por Dia -->
-  <section id="eventos" class="section">
-    <div class="section-header">
-      <h2>📅 Eventos & Atividades por Dia</h2>
-      <p>Consulta os horários dos concertos, workshops e atividades culturais que decorrem em cada dia</p>
-    </div>
-
-    <div class="filter-bar">
-      <button class="pill-btn active" onclick="renderEvents('Sexta-feira', this)">Dia 1 • Sexta-feira</button>
-      <button class="pill-btn" onclick="renderEvents('Sábado', this)">Dia 2 • Sábado</button>
-      <button class="pill-btn" onclick="renderEvents('Domingo', this)">Dia 3 • Domingo</button>
-    </div>
-
-    <div class="event-list" id="eventsContainer"></div>
-  </section>
-
-  <!-- 3. Bilheteira com Marcação e Fila de Espera -->
+  <!-- 6. BILHETEIRA E GESTÃO DE STOCK -->
   <section id="bilhetes" class="section">
     <div class="section-header">
-      <h2>🎟️ Bilheteira, Marcações & Fila de Espera</h2>
-      <p>Faz a marcação do teu bilhete em tempo real ou entra na fila de espera caso o lote esteja esgotado</p>
+      <div>
+        <h2>🎟️ Bilheteira & Fila de Espera</h2>
+        <p>Efetue reservas diretas ou entre na fila de espera automatizada</p>
+      </div>
     </div>
 
     <div class="grid-3" id="ticketsContainer"></div>
   </section>
 
-  <!-- 4. Cadastro de Utilizadores -->
-  <section id="cadastro" class="section">
+  <!-- 7. PAINEL DE ADMINISTRAÇÃO (Exclusivo para gestão de dados) -->
+  <section id="admin" class="section" style="display:none; background: rgba(16,21,34,0.4); border-top:1px solid var(--border);">
     <div class="section-header">
-      <h2>👤 Registo de Espetador na Base de Dados</h2>
-      <p>Cadastra os teus dados para associar automaticamente as tuas compras e lugares na fila de espera</p>
+      <div>
+        <h2>⚙️ Painel de Administração</h2>
+        <p>Adicione novos artistas, palcos e festivais à base de dados do sistema</p>
+      </div>
     </div>
 
     <div class="grid-2">
-      <div class="form-card">
-        <h3 style="margin-bottom:1rem;">Criar Novo Registo</h3>
-        <form onsubmit="registerUser(event)">
+      <div class="card">
+        <h3 style="margin-bottom:1.2rem; font-size:1.2rem;">Adicionar Novo Artista</h3>
+        <form onsubmit="addArtist(event)">
           <div class="form-group">
-            <label>Nome Completo</label>
-            <input type="text" id="regName" class="form-control" placeholder="Ex: Maria Silva" required>
+            <label>Nome do Artista / Banda</label>
+            <input type="text" id="admArtistName" class="form-control" placeholder="Ex: Sunset Sound" required>
           </div>
           <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="regEmail" class="form-control" placeholder="maria@email.pt" required>
+            <label>Estilo Musical</label>
+            <select id="admArtistGenre" class="form-control">
+              <option value="Rock">Rock</option>
+              <option value="Eletrónica">Eletrónica</option>
+              <option value="Hip-Hop">Hip-Hop</option>
+              <option value="Folk">Folk</option>
+            </select>
           </div>
           <div class="form-group">
-            <label>Telemóvel</label>
-            <input type="tel" id="regPhone" class="form-control" placeholder="912 345 678" required>
+            <label>Palco Atribuído</label>
+            <input type="text" id="admArtistStage" class="form-control" placeholder="Ex: Palco Principal" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar na Base de Dados</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Registar Artista na Base de Dados</button>
         </form>
       </div>
 
-      <div class="form-card" style="display:flex; flex-direction:column; justify-content:space-between;">
-        <div>
-          <span class="badge badge-purple">Ficha Académica D.W.B.D.</span>
-          <h3 style="margin-bottom:1rem;">Informação do Projeto</h3>
-          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Projeto:</strong> Nos Bastidores de um Festival</p>
-          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Cliente:</strong> Associação Cultural Frequência Livre</p>
-          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Curso:</strong> 10.º Técnico de Desenvolvimento de Sistemas</p>
-          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Disciplina:</strong> Desenvolvimento Web e Bases de Dados</p>
-          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Professor:</strong> João Baeta (Avaliação N.º 2)</p>
-        </div>
-        <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border); font-size:0.85rem; color:var(--accent);">
-          💾 Persistência ativa: Todos os cadastros, compras e filas de espera ficam guardados localmente no navegador.
-        </div>
+      <div class="card">
+        <h3 style="margin-bottom:1.2rem; font-size:1.2rem;">Adicionar Novo Tipo de Bilhete</h3>
+        <form onsubmit="addTicketType(event)">
+          <div class="form-group">
+            <label>Nome do Passe / Bilhete</label>
+            <input type="text" id="admTicketName" class="form-control" placeholder="Ex: Passe VIP 3 Dias" required>
+          </div>
+          <div class="form-group">
+            <label>Preço (€)</label>
+            <input type="number" id="admTicketPrice" class="form-control" placeholder="50" required>
+          </div>
+          <div class="form-group">
+            <label>Stock Inicial Disponível</label>
+            <input type="number" id="admTicketStock" class="form-control" placeholder="10" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Adicionar Bilhete à Venda</button>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- 5. Painel da Base de Dados em Tempo Real -->
-  <section id="basedados" class="section">
-    <div class="section-header">
-      <h2>🗄️ Base de Dados do Sistema (Registos Gravados)</h2>
-      <p>Visualiza em tempo real as tabelas de Utilizadores, Bilhetes Reservados e Fila de Espera</p>
-    </div>
-
-    <div class="filter-bar">
-      <button class="pill-btn active" onclick="switchDbTab('utilizadores', this)">Tabela: Utilizadores (<span id="countUsers">0</span>)</button>
-      <button class="pill-btn" onclick="switchDbTab('reservas', this)">Tabela: Bilhetes_Comprados (<span id="countBookings">0</span>)</button>
-      <button class="pill-btn" onclick="switchDbTab('espera', this)">Tabela: Fila_Espera (<span id="countWaitlist">0</span>)</button>
-      <button class="pill-btn" style="border-color:var(--danger); color:#fca5a5;" onclick="resetDatabase()">🗑️ Repor Dados de Fábrica</button>
-    </div>
-
-    <div class="db-panel" id="dbTableOutput"></div>
-  </section>
-
   <footer>
-    <p>© 2026 Associação Cultural Frequência Livre • Sistema de Gestão de Festival (D.W.B.D.)</p>
+    <p>© 2026 Associação Cultural Frequência Livre • Festival Management System</p>
   </footer>
 
-  <div id="toast">Operação concluída!</div>
+  <div id="toast">Operação efetuada com sucesso!</div>
 
   <script>
-    // Dados Iniciais do Festival
-    const artistasData = [
-      { nome: "The Soundwaves", estilo: "Rock", subestilo: "Indie Rock", palco: "Palco Principal", dia: "Sexta-feira", hora: "22:30", cor: "badge-purple" },
-      { nome: "DJ Neon Pulse", estilo: "Eletrónica", subestilo: "Tech House / EDM", palco: "Palco Eletrónica", dia: "Sábado", hora: "01:00", cor: "badge-cyan" },
-      { nome: "Rimas do Bairro", estilo: "Hip-Hop", subestilo: "Hip-Hop Tuga", palco: "Palco Principal", dia: "Sábado", hora: "21:30", cor: "badge-pink" },
-      { nome: "Acoustic Sunset", estilo: "Folk", subestilo: "Folk / World Music", palco: "Vila Cultural", dia: "Domingo", hora: "18:30", cor: "badge-green" },
-      { nome: "Voltage 404", estilo: "Rock", subestilo: "Alternative Rock", palco: "Palco Principal", dia: "Domingo", hora: "22:00", cor: "badge-purple" },
-      { nome: "SubBass Collective", estilo: "Eletrónica", subestilo: "Drum & Bass", palco: "Palco Eletrónica", dia: "Sexta-feira", hora: "02:00", cor: "badge-cyan" }
-    ];
-
-    const eventosData = {
-      "Sexta-feira": [
-        { hora: "16:00", titulo: "Abertura de Portas & Check-in Campismo", local: "Entrada Norte", tipo: "Logística" },
-        { hora: "18:30", titulo: "Workshop: Produção de Música Eletrónica", local: "Tenda Criativa", tipo: "Workshop" },
-        { hora: "22:30", titulo: "Concerto: The Soundwaves", local: "Palco Principal", tipo: "Concerto" },
-        { hora: "02:00", titulo: "Afterparty: SubBass Collective", local: "Palco Eletrónica", tipo: "DJ Set" }
-      ],
-      "Sábado": [
-        { hora: "15:00", titulo: "Feira de Artesanato & Gastronomia Local", local: "Vila Cultural", tipo: "Exposição" },
-        { hora: "17:30", titulo: "Batalha de Freestyle & Beatbox", local: "Arena Urbana", tipo: "Competição" },
-        { hora: "21:30", titulo: "Concerto: Rimas do Bairro", local: "Palco Principal", tipo: "Concerto" },
-        { hora: "01:00", titulo: "Espetáculo Laser: DJ Neon Pulse", local: "Palco Eletrónica", tipo: "Headliner" }
-      ],
-      "Domingo": [
-        { hora: "16:00", titulo: "Yoga & Relaxamento no Bosque", local: "Zona Verde", tipo: "Bem-estar" },
-        { hora: "18:30", titulo: "Sessão Acústica: Acoustic Sunset", local: "Vila Cultural", tipo: "Concerto" },
-        { hora: "22:00", titulo: "Encerramento Oficial: Voltage 404 + Fogo de Artifício", local: "Palco Principal", tipo: "Encerramento" }
-      ]
-    };
-
-    // Estado da Base de Dados (LocalStorage)
-    let db = JSON.parse(localStorage.getItem('festival_db_v1')) || {
-      activeUser: null,
-      users: [
-        { id: 1, nome: "João Baeta (Prof.)", email: "joao.baeta@escola.pt", telemovel: "910000000" }
+    // Base de Dados Global do Sistema (LocalStorage)
+    let appDb = JSON.parse(localStorage.getItem('frequencia_livre_pro_db')) || {
+      currentUser: null,
+      tempRegData: null,
+      generatedCode: null,
+      artists: [
+        { name: "The Soundwaves", genre: "Rock", stage: "Palco Principal", time: "22:30" },
+        { name: "DJ Neon Pulse", genre: "Eletrónica", stage: "Palco Eletrónica", time: "01:00" },
+        { name: "Rimas do Bairro", genre: "Hip-Hop", stage: "Vila Cultural", time: "21:30" }
       ],
       tickets: [
-        { id: "T1", nome: "Bilhete Diário", preco: 20, stock: 15, desc: "Acesso válido para 1 dia à escolha em todos os palcos." },
-        { id: "T2", nome: "Passe Geral (3 Dias)", preco: 45, stock: 4, desc: "Acesso total aos 3 dias de festival + zona de campismo." },
-        { id: "T3", nome: "Passe VIP Backstage", preco: 85, stock: 0, desc: "Acesso exclusivo aos bastidores, bar VIP e frente de palco." }
+        { id: "t1", name: "Bilhete Diário", price: 20, stock: 12 },
+        { id: "t2", name: "Passe Geral (3 Dias)", price: 45, stock: 2 },
+        { id: "t3", name: "Passe VIP Backstage", price: 85, stock: 0 }
       ],
       bookings: [],
-      waitlist: [
-        { id: 1, utilizador: "Ana Martins", bilhete: "Passe VIP Backstage", data: "15/11/2026 21:10" }
-      ]
+      waitlist: []
     };
 
-    let currentDbTab = 'utilizadores';
-
-    function saveDb() {
-      localStorage.setItem('festival_db_v1', JSON.stringify(db));
-      updateCounters();
-      renderDbTable(currentDbTab);
+    function saveAppData() {
+      localStorage.setItem('frequencia_livre_pro_db', JSON.stringify(appDb));
+      renderUI();
     }
 
     function showToast(msg, isWarning = false) {
@@ -598,193 +559,193 @@
       setTimeout(() => t.classList.remove('show'), 3500);
     }
 
-    // Renderizar Artistas
+    // Controlo de Autenticação e Código por "Email"
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('authName').value.trim();
+      const email = document.getElementById('authEmail').value.trim();
+      const pass = document.getElementById('authPass').value.trim();
+
+      const code = Math.floor(1000 + Math.random() * 9000).toString();
+      appDb.tempRegData = { name, email, pass };
+      appDb.generatedCode = code;
+
+      document.getElementById('authSubtitle').innerText = "Confirme o código de segurança enviado para o seu email:";
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('verifyForm').style.display = 'block';
+      document.getElementById('simulatedCodeDisplay').innerText = code;
+    }
+
+    function handleVerify(e) {
+      e.preventDefault();
+      const inputCode = document.getElementById('verificationCodeInput').value.trim();
+
+      if (inputCode === appDb.generatedCode) {
+        appDb.currentUser = appDb.tempRegData;
+        appDb.tempRegData = null;
+        appDb.generatedCode = null;
+        saveAppData();
+        document.getElementById('authModal').style.display = 'none';
+        showToast(`Conta verificada com sucesso! Bem-vindo, ${appDb.currentUser.name}`);
+      } else {
+        showToast("⚠️ Código incorreto! Tente novamente.", true);
+      }
+    }
+
+    function logoutUser() {
+      appDb.currentUser = null;
+      saveAppData();
+      location.reload();
+    }
+
+    // Controlo da Gaveta Lateral (Sidebar)
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarDrawer');
+      sidebar.classList.toggle('open');
+    }
+
+    // Gestão de Artistas
     function filterArtists(genre, btn) {
       if (btn) {
         document.querySelectorAll('#genreFilters .pill-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       }
       const container = document.getElementById('artistsContainer');
-      const filtered = genre === 'todos' ? artistasData : artistasData.filter(a => a.estilo === genre);
+      const filtered = genre === 'todos' ? appDb.artists : appDb.artists.filter(a => a.genre === genre);
       
       container.innerHTML = filtered.map(a => `
         <div class="card">
           <div>
-            <span class="badge ${a.cor}">${a.subestilo}</span>
-            <h3 style="font-size:1.3rem; margin-bottom:0.3rem;">${a.nome}</h3>
-            <p style="color:var(--muted); font-size:0.9rem;">📍 ${a.palco}</p>
+            <span class="badge badge-purple">${a.genre}</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.3rem;">${a.name}</h3>
+            <p style="color:var(--muted); font-size:0.9rem;">📍 ${a.stage}</p>
           </div>
-          <div style="margin-top:1.2rem; padding-top:0.8rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; font-size:0.85rem;">
-            <span style="color:var(--accent); font-weight:700;">${a.dia}</span>
-            <span style="color:var(--muted);">⏰ ${a.hora}</span>
+          <div style="margin-top:1.2rem; padding-top:0.8rem; border-top:1px solid var(--border); font-size:0.85rem; color:var(--accent);">
+            ⏰ Horário: ${a.time}
           </div>
         </div>
       `).join('');
     }
 
-    // Renderizar Eventos do Dia
-    function renderEvents(day, btn) {
-      if (btn) {
-        btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      const container = document.getElementById('eventsContainer');
-      container.innerHTML = eventosData[day].map(ev => `
-        <div class="event-item">
-          <div style="display:flex; align-items:center; gap:1.2rem;">
-            <span class="event-time">⏰ ${ev.hora}</span>
-            <div>
-              <h4 style="font-size:1.05rem;">${ev.titulo}</h4>
-              <span style="color:var(--muted); font-size:0.85rem;">📍 ${ev.local}</span>
-            </div>
-          </div>
-          <span class="badge badge-cyan" style="margin:0;">${ev.tipo}</span>
-        </div>
-      `).join('');
-    }
-
-    // Renderizar Bilhetes e Fila de Espera
+    // Gestão de Bilhetes e Reservas
     function renderTickets() {
       const container = document.getElementById('ticketsContainer');
-      container.innerHTML = db.tickets.map(t => {
-        const esgotado = t.stock <= 0;
+      container.innerHTML = appDb.tickets.map(t => {
+        const soldOut = t.stock <= 0;
         return `
-          <div class="card" style="${esgotado ? 'border-color: rgba(245, 158, 11, 0.35);' : ''}">
+          <div class="card" style="${soldOut ? 'border-color: rgba(245,158,11,0.35);' : ''}">
             <div>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
-                <span class="badge ${esgotado ? 'badge-red' : 'badge-green'}" style="margin:0;">
-                  ${esgotado ? '❌ Esgotado' : `✅ ${t.stock} disponíveis`}
-                </span>
-                <span style="font-size:1.6rem; font-weight:800; color:var(--accent);">${t.preco}€</span>
+                <span class="badge ${soldOut ? 'badge-red' : 'badge-green'}">${soldOut ? 'Esgotado' : `${t.stock} disponíveis`}</span>
+                <span style="font-size:1.5rem; font-weight:800; color:var(--accent);">${t.price}€</span>
               </div>
-              <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">${t.nome}</h3>
-              <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">${t.desc}</p>
+              <h3 style="font-size:1.25rem; margin-bottom:0.5rem;">${t.name}</h3>
+              <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">Acesso oficial aos recintos do festival com validação digital.</p>
             </div>
-            ${esgotado 
-              ? `<button class="btn btn-waitlist" onclick="joinWaitlist('${t.id}')">⏳ Entrar na Fila de Espera</button>`
-              : `<button class="btn btn-buy" onclick="buyTicket('${t.id}')">🎟️ Marcar / Comprar Bilhete</button>`
+            ${soldOut 
+              ? `<button class="btn" style="background:rgba(245,158,11,0.15); color:var(--warning); border:1px solid rgba(245,158,11,0.4); width:100%;" onclick="joinWaitlist('${t.name}')">⏳ Entrar na Fila de Espera</button>`
+              : `<button class="btn btn-primary" style="width:100%;" onclick="buyTicket('${t.id}')">🎟️ Reservar Bilhete</button>`
             }
           </div>
         `;
       }).join('');
     }
 
-    // Cadastro de Utilizador
-    function registerUser(e) {
-      e.preventDefault();
-      const nome = document.getElementById('regName').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
-      const telemovel = document.getElementById('regPhone').value.trim();
-
-      const newUser = { id: db.users.length + 1, nome, email, telemovel };
-      db.users.push(newUser);
-      db.activeUser = newUser;
-
-      document.getElementById('activeUserDisplay').innerText = `👤 ${nome}`;
-      e.target.reset();
-      saveDb();
-      showToast(`Conta criada para ${nome}! Já podes reservar bilhetes.`);
-    }
-
-    // Comprar / Marcar Bilhete
-    function buyTicket(ticketId) {
-      if (!db.activeUser) {
-        showToast("⚠️ Faz primeiro o teu cadastro na secção 'Cadastro'!", true);
-        document.getElementById('cadastro').scrollIntoView();
-        return;
-      }
-      const ticket = db.tickets.find(t => t.id === ticketId);
+    function buyTicket(id) {
+      const ticket = appDb.tickets.find(t => t.id === id);
       if (ticket && ticket.stock > 0) {
         ticket.stock -= 1;
-        db.bookings.push({
-          codigo: "FRQ-" + Math.floor(1000 + Math.random() * 9000),
-          utilizador: db.activeUser.nome,
-          email: db.activeUser.email,
-          bilhete: ticket.nome,
-          valor: ticket.preco + "€",
-          data: new Date().toLocaleString('pt-PT')
+        appDb.bookings.push({
+          user: appDb.currentUser.name,
+          item: ticket.name,
+          price: ticket.price + "€",
+          code: "FL-" + Math.floor(1000 + Math.random() * 9000)
         });
-        saveDb();
-        renderTickets();
-        showToast(`Bilhete "${ticket.nome}" reservado com sucesso!`);
+        saveAppData();
+        showToast(`Bilhete "${ticket.name}" reservado com sucesso!`);
       }
     }
 
-    // Entrar na Fila de Espera
-    function joinWaitlist(ticketId) {
-      if (!db.activeUser) {
-        showToast("⚠️ Cadastra-te primeiro para entrares na fila de espera!", true);
-        document.getElementById('cadastro').scrollIntoView();
-        return;
-      }
-      const ticket = db.tickets.find(t => t.id === ticketId);
-      db.waitlist.push({
-        id: db.waitlist.length + 1,
-        utilizador: db.activeUser.nome,
-        bilhete: ticket.nome,
-        data: new Date().toLocaleString('pt-PT')
+    function joinWaitlist(ticketName) {
+      appDb.waitlist.push({
+        user: appDb.currentUser.name,
+        item: ticketName,
+        date: new Date().toLocaleDateString('pt-PT')
       });
-      saveDb();
-      showToast(`Adicionado à fila de espera (Posição #${db.waitlist.length})!`, true);
+      saveAppData();
+      showToast(`Adicionado à fila de espera para ${ticketName}!`, true);
     }
 
-    // Visualizador da Base de Dados
-    function switchDbTab(tab, btn) {
-      currentDbTab = tab;
-      if (btn) {
-        btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      renderDbTable(tab);
+    // Painel Admin (Adicionar dados)
+    function addArtist(e) {
+      e.preventDefault();
+      const name = document.getElementById('admArtistName').value;
+      const genre = document.getElementById('admArtistGenre').value;
+      const stage = document.getElementById('admArtistStage').value;
+      appDb.artists.push({ name, genre, stage, time: "21:00" });
+      saveAppData();
+      e.target.reset();
+      showToast("Artista adicionado ao sistema!");
     }
 
-    function renderDbTable(tab) {
-      const out = document.getElementById('dbTableOutput');
-      if (tab === 'utilizadores') {
-        out.innerHTML = `
-          <table>
-            <tr><th>id_utilizador (PK)</th><th>nome_completo</th><th>email</th><th>telemovel</th></tr>
-            ${db.users.map(u => `<tr><td>#${u.id}</td><td>${u.nome}</td><td>${u.email}</td><td>${u.telemovel}</td></tr>`).join('')}
-          </table>`;
-      } else if (tab === 'reservas') {
-        if (db.bookings.length === 0) {
-          out.innerHTML = `<p style="color:var(--muted); text-align:center; padding:1rem;">Ainda não existem bilhetes comprados. Experimenta reservar um acima!</p>`;
-          return;
+    function addTicketType(e) {
+      e.preventDefault();
+      const name = document.getElementById('admTicketName').value;
+      const price = parseFloat(document.getElementById('admTicketPrice').value);
+      const stock = parseInt(document.getElementById('admTicketStock').value);
+      appDb.tickets.push({ id: "t" + (appDb.tickets.length + 1), name, price, stock });
+      saveAppData();
+      e.target.reset();
+      showToast("Novo tipo de bilhete criado!");
+    }
+
+    function changeLanguage(lang) {
+      showToast(`Idioma alterado para: ${lang.toUpperCase()}`);
+    }
+
+    // Atualização Geral da Interface
+    function renderUI() {
+      if (appDb.currentUser) {
+        document.getElementById('authModal').style.display = 'none';
+        document.getElementById('navUserName').innerText = appDb.currentUser.name.split(' ')[0];
+        document.getElementById('drawerName').innerText = appDb.currentUser.name;
+        document.getElementById('drawerEmail').innerText = appDb.currentUser.email;
+
+        // Se for o administrador principal, mostra o painel admin
+        if (appDb.currentUser.email.includes('admin') || appDb.currentUser.name.toLowerCase().includes('admin')) {
+          document.getElementById('admin').style.display = 'block';
+          document.getElementById('adminNavLink').style.display = 'block';
         }
-        out.innerHTML = `
-          <table>
-            <tr><th>codigo_reserva (PK)</th><th>utilizador</th><th>tipo_bilhete</th><th>valor_pago</th><th>data_hora</th></tr>
-            ${db.bookings.map(b => `<tr><td>${b.codigo}</td><td>${b.utilizador}</td><td>${b.bilhete}</td><td>${b.valor}</td><td>${b.data}</td></tr>`).join('')}
-          </table>`;
-      } else if (tab === 'espera') {
-        out.innerHTML = `
-          <table>
-            <tr><th>posicao_fila</th><th>utilizador</th><th>bilhete_pretendido</th><th>data_pedido</th></tr>
-            ${db.waitlist.map((w, idx) => `<tr><td>#${idx + 1}</td><td>${w.utilizador}</td><td>${w.bilhete}</td><td>${w.data}</td></tr>`).join('')}
-          </table>`;
+
+        // Atualizar lista de reservas no Drawer
+        const bookingsList = document.getElementById('drawerBookingsList');
+        bookingsList.innerHTML = appDb.bookings.length === 0 
+          ? `<p style="color:var(--muted); font-size:0.85rem;">Ainda sem reservas.</p>`
+          : appDb.bookings.filter(b => b.user === appDb.currentUser.name).map(b => `
+              <div style="background:var(--bg); padding:0.6rem; border-radius:6px; font-size:0.85rem;">
+                <strong>${b.item}</strong><br><span style="color:var(--accent);">Ref: ${b.code}</span>
+              </div>
+            `).join('');
+
+        // Atualizar fila de espera no Drawer
+        const waitlistList = document.getElementById('drawerWaitlistList');
+        waitlistList.innerHTML = appDb.waitlist.length === 0
+          ? `<p style="color:var(--muted); font-size:0.85rem;">Nenhuma fila de espera.</p>`
+          : appDb.waitlist.filter(w => w.user === appDb.currentUser.name).map(w => `
+              <div style="background:var(--bg); padding:0.6rem; border-radius:6px; font-size:0.85rem;">
+                <strong>${w.item}</strong><br><span style="color:var(--warning);">Em espera</span>
+              </div>
+            `).join('');
+
+        document.getElementById('cartCountBadge').innerText = appDb.bookings.filter(b => b.user === appDb.currentUser.name).length;
       }
+
+      filterArtists('todos');
+      renderTickets();
     }
 
-    function updateCounters() {
-      document.getElementById('countUsers').innerText = db.users.length;
-      document.getElementById('countBookings').innerText = db.bookings.length;
-      document.getElementById('countWaitlist').innerText = db.waitlist.length;
-      if (db.activeUser) {
-        document.getElementById('activeUserDisplay').innerText = `👤 ${db.activeUser.nome}`;
-      }
-    }
-
-    function resetDatabase() {
-      localStorage.removeItem('festival_db_v1');
-      location.reload();
-    }
-
-    // Inicializar página
-    filterArtists('todos');
-    renderEvents('Sexta-feira');
-    renderTickets();
-    updateCounters();
-    renderDbTable('utilizadores');
+    // Inicializar
+    renderUI();
   </script>
 </body>
 </html>
