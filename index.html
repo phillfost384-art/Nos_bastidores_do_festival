@@ -4,286 +4,395 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nos Bastidores de um Festival | Frequência Livre</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-deep: #07090e;
-      --bg-card: #121824;
-      --neon-purple: #9d4edd;
-      --neon-cyan: #00f5d4;
-      --neon-pink: #f72585;
-      --text-main: #f8f9fa;
-      --text-muted: #94a3b8;
-      --border-glow: rgba(157, 78, 221, 0.3);
+      --bg: #080a10;
+      --surface: #111622;
+      --surface-hover: #182032;
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --accent: #06b6d4;
+      --pink: #ec4899;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       scroll-behavior: smooth;
     }
 
     body {
-      background-color: var(--bg-deep);
-      color: var(--text-main);
+      background-color: var(--bg);
+      color: var(--text);
       line-height: 1.6;
     }
 
-    /* Navbar */
+    /* Navegação */
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 5%;
-      background: rgba(7, 9, 14, 0.9);
-      backdrop-filter: blur(12px);
       position: fixed;
       top: 0;
       width: 100%;
+      background: rgba(8, 10, 16, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .logo {
+    .brand {
       font-weight: 800;
-      font-size: 1.2rem;
-      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .navbar nav ul {
+    .nav-links {
       display: flex;
+      gap: 0.5rem;
       list-style: none;
-      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
-    .navbar nav a {
-      color: var(--text-muted);
+    .nav-links a {
+      color: var(--muted);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
-      transition: color 0.3s;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
     }
 
-    .navbar nav a:hover { color: var(--neon-cyan); }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .user-pill {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #c4b5fd;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
 
     /* Hero */
     .hero {
-      padding: 9rem 5% 5rem;
+      padding: 8.5rem 5% 4.5rem;
       text-align: center;
-      background: radial-gradient(circle at center, rgba(157, 78, 221, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle at top, rgba(139, 92, 246, 0.18), transparent 65%);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
       font-weight: 800;
+      line-height: 1.1;
       margin-bottom: 1rem;
     }
 
     .hero h1 span {
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      background: linear-gradient(90deg, var(--accent), var(--primary), var(--pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 600px;
+      color: var(--muted);
+      max-width: 650px;
       margin: 0 auto 2rem;
+      font-size: 1.05rem;
     }
+
+    /* Botões Gerais */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--pink));
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5); }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-waitlist {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      width: 100%;
+    }
+    .btn-waitlist:hover { background: var(--warning); color: #000; }
+
+    .btn-buy {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color: white;
+      width: 100%;
+    }
+    .btn-buy:hover { opacity: 0.92; transform: translateY(-1px); }
 
     /* Secções */
     .section {
-      padding: 4rem 5%;
-      max-width: 1100px;
+      padding: 4.5rem 5%;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .section-title {
+    .section-header {
       text-align: center;
       margin-bottom: 2.5rem;
     }
 
-    .section-title h2 {
+    .section-header h2 {
       font-size: 2rem;
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
     }
 
-    .section-title p { color: var(--text-muted); }
+    .section-header p { color: var(--muted); }
 
-    /* Barra de Pesquisa Funcional */
-    .search-box {
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto 2rem;
-      padding: 0.8rem 1.2rem;
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+    /* Barra de Abas e Filtros Bonitos */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .pill-btn {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    .pill-btn.active {
+      background: var(--primary);
       color: white;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
     }
-    .search-box:focus { border-color: var(--neon-cyan); }
 
-    /* Cartazes & Cartões */
+    /* Grelhas e Cartões */
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
     }
 
-    .artist-card {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s;
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
     }
 
-    .artist-card:hover { transform: translateY(-4px); border-color: var(--border-glow); }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-    .stage-tag {
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .badge {
       display: inline-block;
-      background: rgba(157, 78, 221, 0.15);
-      color: var(--neon-purple);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
       font-size: 0.75rem;
       font-weight: 700;
+      text-transform: uppercase;
       margin-bottom: 0.8rem;
+      width: fit-content;
     }
 
-    /* Calculadora de Bilhetes Interativa */
-    .ticket-simulator {
-      background: var(--bg-card);
-      padding: 2.5rem;
+    .badge-purple { background: rgba(139, 92, 246, 0.18); color: #c4b5fd; }
+    .badge-cyan { background: rgba(6, 182, 212, 0.18); color: #67e8f9; }
+    .badge-pink { background: rgba(236, 72, 153, 0.18); color: #f9a8d4; }
+    .badge-green { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; }
+    .badge-red { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
+
+    /* Eventos do Dia */
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .event-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .event-time {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.05rem;
+      min-width: 110px;
+    }
+
+    /* Formulários & Cadastro */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      max-width: 600px;
-      margin: 0 auto;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2rem;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.1rem;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .form-group select, .form-group input {
-      width: 100%;
-      padding: 0.75rem;
-      background: #07090e;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      color: white;
-      font-size: 1rem;
-    }
-
-    .total-price {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--neon-cyan);
-      margin: 1.5rem 0;
-      text-align: center;
-    }
-
-    .btn-action {
-      width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: opacity 0.3s;
-    }
-    .btn-action:hover { opacity: 0.9; }
-
-    /* Base de Dados Interativa (Abas de Tabelas) */
-    .db-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      background: var(--bg-card);
-      color: var(--text-muted);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
+      font-size: 0.88rem;
       font-weight: 600;
-      transition: all 0.3s;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
     }
 
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--neon-cyan);
-      color: var(--bg-deep);
-      border-color: var(--neon-cyan);
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
     }
 
-    .db-table-container {
-      background: var(--bg-card);
-      border-radius: 12px;
+    .form-control:focus { border-color: var(--accent); }
+
+    /* Tabelas da Base de Dados */
+    .db-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 1.5rem;
       overflow-x: auto;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      display: none;
     }
-
-    .db-table-container.active { display: block; }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     th, td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    th { color: var(--neon-cyan); font-weight: 600; }
-    td { color: var(--text-muted); font-family: monospace; }
-
-    /* Ficha Académica */
-    .academic-box {
-      background: var(--bg-card);
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 600px;
-      margin: 0 auto;
-      border-left: 4px solid var(--neon-purple);
+    th {
+      color: var(--accent);
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.2);
     }
-    .academic-box p { margin-bottom: 0.5rem; color: var(--text-muted); }
-    .academic-box strong { color: var(--text-main); }
+
+    td { color: var(--muted); }
+
+    /* Notificação Flutuante (Toast) */
+    #toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--surface);
+      border-left: 4px solid var(--success);
+      color: var(--text);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transform: translateY(150%);
+      transition: transform 0.3s ease;
+      z-index: 2000;
+    }
+    #toast.show { transform: translateY(0); }
 
     footer {
       text-align: center;
-      padding: 2.5rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 3rem 5%;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
       margin-top: 3rem;
     }
   </style>
@@ -292,197 +401,390 @@
 
   <!-- Navbar -->
   <header class="navbar">
-    <div class="logo">⚡ FREQUÊNCIA LIVRE</div>
-    <nav>
-      <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#cartaz">Artistas</a></li>
-        <li><a href="#bilheteira">Bilheteira</a></li>
-        <li><a href="#dados">Base de Dados</a></li>
-        <li><a href="#projeto">Projeto</a></li>
-      </ul>
-    </nav>
+    <div class="brand">⚡ FREQUÊNCIA LIVRE</div>
+    <ul class="nav-links">
+      <li><a href="#artistas">Artistas & Estilos</a></li>
+      <li><a href="#eventos">Eventos do Dia</a></li>
+      <li><a href="#bilhetes">Bilheteira & Espera</a></li>
+      <li><a href="#cadastro">Cadastro</a></li>
+      <li><a href="#basedados">Base de Dados</a></li>
+    </ul>
+    <div class="user-pill" id="activeUserDisplay">👤 Visitante</div>
   </header>
 
   <!-- Hero -->
-  <section id="inicio" class="hero">
-    <h1>NOS BASTIDORES<br><span>DO FESTIVAL</span></h1>
-    <p>Plataforma interativa de gestão de programação, bilheteira e base de dados relacional.</p>
-  </section>
-
-  <!-- Secção Artistas com Pesquisa Funcional -->
-  <section id="cartaz" class="section">
-    <div class="section-title">
-      <h2>🎸 Programação & Artistas</h2>
-      <p>Pesquise artistas ou géneros musicais em tempo real</p>
-    </div>
-
-    <input type="text" id="searchInput" class="search-box" placeholder="Pesquisar artista ou estilo (ex: Rock, DJ...)" onkeyup="filterArtists()">
-
-    <div class="grid-3" id="artistGrid">
-      <div class="artist-card" data-name="the soundwaves indie rock" data-stage="Palco Principal">
-        <span class="stage-tag">Palco Principal</span>
-        <h3>The Soundwaves</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem;">Estilo: Indie Rock / Alternativo</p>
-        <p style="color:var(--neon-cyan); font-size:0.85rem; margin-top:1rem;">Horário: Sexta, 22:00</p>
-      </div>
-
-      <div class="artist-card" data-name="dj neon pulse tech house edm" data-stage="Palco Eletrónica">
-        <span class="stage-tag" style="background:rgba(0,245,212,0.15); color:var(--neon-cyan);">Palco Eletrónica</span>
-        <h3>DJ Neon Pulse</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem;">Estilo: Tech House / EDM</p>
-        <p style="color:var(--neon-cyan); font-size:0.85rem; margin-top:1rem;">Horário: Sábado, 01:00</p>
-      </div>
-
-      <div class="artist-card" data-name="acoustic sunset folk world music" data-stage="Vila Cultural">
-        <span class="stage-tag" style="background:rgba(247,37,133,0.15); color:var(--neon-pink);">Vila Cultural</span>
-        <h3>Acoustic Sunset</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem;">Estilo: Folk / World Music</p>
-        <p style="color:var(--neon-cyan); font-size:0.85rem; margin-top:1rem;">Horário: Domingo, 18:30</p>
-      </div>
+  <section class="hero">
+    <div class="hero-tag">Associação Cultural Frequência Livre • Edição 2026</div>
+    <h1>NOS BASTIDORES<br><span>DE UM FESTIVAL</span></h1>
+    <p>Plataforma completa de gestão de espetadores, reservas de bilhetes, fila de espera automática, programação artística e base de dados relacional.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#bilhetes" class="btn btn-primary">🎟️ Reservar Bilhetes</a>
+      <a href="#cadastro" class="btn btn-outline">👤 Criar Conta de Espetador</a>
     </div>
   </section>
 
-  <!-- Simulador de Bilhetes Funcional -->
-  <section id="bilheteira" class="section" style="background: rgba(18,24,36,0.4);">
-    <div class="section-title">
-      <h2>🎟️ Simulador de Bilheteira</h2>
-      <p>Calculadora interativa de preços de passes</p>
+  <!-- 1. Artistas e Estilos Musicais -->
+  <section id="artistas" class="section">
+    <div class="section-header">
+      <h2>🎸 Artistas & Estilos Musicais</h2>
+      <p>Filtra por género musical ou palco para explorares o cartaz completo</p>
     </div>
 
-    <div class="ticket-simulator">
-      <div class="form-group">
-        <label for="ticketType">Tipo de Passe:</label>
-        <select id="ticketType" onchange="calculateTotal()">
-          <option value="45">Passe Geral (3 Dias) - 45€</option>
-          <option value="20">Bilhete Diário - 20€</option>
-          <option value="60">Passe VIP + Campismo - 60€</option>
-        </select>
+    <div class="filter-bar" id="genreFilters">
+      <button class="pill-btn active" onclick="filterArtists('todos', this)">Todos os Estilos</button>
+      <button class="pill-btn" onclick="filterArtists('Rock', this)">Indie & Rock</button>
+      <button class="pill-btn" onclick="filterArtists('Eletrónica', this)">Eletrónica & DJ</button>
+      <button class="pill-btn" onclick="filterArtists('Hip-Hop', this)">Hip-Hop & Urban</button>
+      <button class="pill-btn" onclick="filterArtists('Folk', this)">Folk & Acústico</button>
+    </div>
+
+    <div class="grid-3" id="artistsContainer"></div>
+  </section>
+
+  <!-- 2. Eventos Paralelos e Programação por Dia -->
+  <section id="eventos" class="section">
+    <div class="section-header">
+      <h2>📅 Eventos & Atividades por Dia</h2>
+      <p>Consulta os horários dos concertos, workshops e atividades culturais que decorrem em cada dia</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="pill-btn active" onclick="renderEvents('Sexta-feira', this)">Dia 1 • Sexta-feira</button>
+      <button class="pill-btn" onclick="renderEvents('Sábado', this)">Dia 2 • Sábado</button>
+      <button class="pill-btn" onclick="renderEvents('Domingo', this)">Dia 3 • Domingo</button>
+    </div>
+
+    <div class="event-list" id="eventsContainer"></div>
+  </section>
+
+  <!-- 3. Bilheteira com Marcação e Fila de Espera -->
+  <section id="bilhetes" class="section">
+    <div class="section-header">
+      <h2>🎟️ Bilheteira, Marcações & Fila de Espera</h2>
+      <p>Faz a marcação do teu bilhete em tempo real ou entra na fila de espera caso o lote esteja esgotado</p>
+    </div>
+
+    <div class="grid-3" id="ticketsContainer"></div>
+  </section>
+
+  <!-- 4. Cadastro de Utilizadores -->
+  <section id="cadastro" class="section">
+    <div class="section-header">
+      <h2>👤 Registo de Espetador na Base de Dados</h2>
+      <p>Cadastra os teus dados para associar automaticamente as tuas compras e lugares na fila de espera</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-card">
+        <h3 style="margin-bottom:1rem;">Criar Novo Registo</h3>
+        <form onsubmit="registerUser(event)">
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="regName" class="form-control" placeholder="Ex: Maria Silva" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="maria@email.pt" required>
+          </div>
+          <div class="form-group">
+            <label>Telemóvel</label>
+            <input type="tel" id="regPhone" class="form-control" placeholder="912 345 678" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar na Base de Dados</button>
+        </form>
       </div>
 
-      <div class="form-group">
-        <label for="ticketQty">Quantidade:</label>
-        <input type="number" id="ticketQty" value="1" min="1" max="10" oninput="calculateTotal()">
+      <div class="form-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <span class="badge badge-purple">Ficha Académica D.W.B.D.</span>
+          <h3 style="margin-bottom:1rem;">Informação do Projeto</h3>
+          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Projeto:</strong> Nos Bastidores de um Festival</p>
+          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Cliente:</strong> Associação Cultural Frequência Livre</p>
+          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Curso:</strong> 10.º Técnico de Desenvolvimento de Sistemas</p>
+          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Disciplina:</strong> Desenvolvimento Web e Bases de Dados</p>
+          <p style="color:var(--muted); margin-bottom:0.5rem;"><strong style="color:var(--text);">Professor:</strong> João Baeta (Avaliação N.º 2)</p>
+        </div>
+        <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border); font-size:0.85rem; color:var(--accent);">
+          💾 Persistência ativa: Todos os cadastros, compras e filas de espera ficam guardados localmente no navegador.
+        </div>
       </div>
-
-      <div class="total-price" id="totalDisplay">Total: 45 €</div>
-
-      <button class="btn-action" onclick="alert('Compra simulada com sucesso! Registo gravado na base de dados.')">Confirmar Reserva</button>
     </div>
   </section>
 
-  <!-- Base de Dados Interativa (Tabelas SQL Simuladas) -->
-  <section id="dados" class="section">
-    <div class="section-title">
-      <h2>🗄️ Visualizador da Base de Dados</h2>
-      <p>Explore as tabelas relacionais do sistema do festival</p>
+  <!-- 5. Painel da Base de Dados em Tempo Real -->
+  <section id="basedados" class="section">
+    <div class="section-header">
+      <h2>🗄️ Base de Dados do Sistema (Registos Gravados)</h2>
+      <p>Visualiza em tempo real as tabelas de Utilizadores, Bilhetes Reservados e Fila de Espera</p>
     </div>
 
-    <div class="db-tabs">
-      <button class="tab-btn active" onclick="switchTab(event, 't-artistas')">Tabela: Artistas</button>
-      <button class="tab-btn" onclick="switchTab(event, 't-palcos')">Tabela: Palcos</button>
-      <button class="tab-btn" onclick="switchTab(event, 't-atuacoes')">Tabela: Atuações</button>
-      <button class="tab-btn" onclick="switchTab(event, 't-bilhetes')">Tabela: Bilhetes</button>
+    <div class="filter-bar">
+      <button class="pill-btn active" onclick="switchDbTab('utilizadores', this)">Tabela: Utilizadores (<span id="countUsers">0</span>)</button>
+      <button class="pill-btn" onclick="switchDbTab('reservas', this)">Tabela: Bilhetes_Comprados (<span id="countBookings">0</span>)</button>
+      <button class="pill-btn" onclick="switchDbTab('espera', this)">Tabela: Fila_Espera (<span id="countWaitlist">0</span>)</button>
+      <button class="pill-btn" style="border-color:var(--danger); color:#fca5a5;" onclick="resetDatabase()">🗑️ Repor Dados de Fábrica</button>
     </div>
 
-    <div id="t-artistas" class="db-table-container active">
-      <table>
-        <tr><th>id_artista (PK)</th><th>nome_banda</th><th>estilo_musical</th><th>contacto</th></tr>
-        <tr><td>1</td><td>The Soundwaves</td><td>Indie Rock</td><td>geral@soundwaves.pt</td></tr>
-        <tr><td>2</td><td>DJ Neon Pulse</td><td>Tech House</td><td>booking@neonpulse.com</td></tr>
-        <tr><td>3</td><td>Acoustic Sunset</td><td>Folk</td><td>geral@acousticsunset.pt</td></tr>
-      </table>
-    </div>
-
-    <div id="t-palcos" class="db-table-container">
-      <table>
-        <tr><th>id_palco (PK)</th><th>nome_palco</th><th>capacidade</th><th>localizacao</th></tr>
-        <tr><td>101</td><td>Palco Principal</td><td>15000</td><td>Zona Norte - Relvado</td></tr>
-        <tr><td>102</td><td>Palco Eletrónica</td><td>5000</td><td>Pavilhão Industrial</td></tr>
-        <tr><td>103</td><td>Vila Cultural</td><td>2000</td><td>Bosque Central</td></tr>
-      </table>
-    </div>
-
-    <div id="t-atuacoes" class="db-table-container">
-      <table>
-        <tr><th>id_atuacao (PK)</th><th>id_artista (FK)</th><th>id_palco (FK)</th><th>data_hora</th></tr>
-        <tr><td>501</td><td>1</td><td>101</td><td>2026-07-12 22:00:00</td></tr>
-        <tr><td>502</td><td>2</td><td>102</td><td>2026-07-13 01:00:00</td></tr>
-        <tr><td>503</td><td>3</td><td>103</td><td>2026-07-14 18:30:00</td></tr>
-      </table>
-    </div>
-
-    <div id="t-bilhetes" class="db-table-container">
-      <table>
-        <tr><th>id_bilhete (PK)</th><th>tipo_passe</th><th>preco</th><th>estado</th></tr>
-        <tr><td>9001</td><td>Passe Geral</td><td>45.00</td><td>Disponível</td></tr>
-        <tr><td>9002</td><td>Bilhete Diário</td><td>20.00</td><td>Disponível</td></tr>
-        <tr><td>9003</td><td>VIP + Campismo</td><td>60.00</td><td>Limitado</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <!-- Ficha Académica -->
-  <section id="projeto" class="section" style="background: rgba(18,24,36,0.4);">
-    <div class="section-title">
-      <h2>📚 Ficha Académica</h2>
-    </div>
-    <div class="academic-box">
-      <p><strong>Projeto:</strong> Nos Bastidores de um Festival</p>
-      <p><strong>Cliente:</strong> Associação Cultural Frequência Livre</p>
-      <p><strong>Disciplina:</strong> Desenvolvimento Web e Bases de Dados (D.W.B.D.)</p>
-      <p><strong>Curso:</strong> 10.º Técnico de Desenvolvimento de Sistemas</p>
-      <p><strong>Professor:</strong> João Baeta</p>
-      <p><strong>Avaliação:</strong> N.º 2</p>
-    </div>
+    <div class="db-panel" id="dbTableOutput"></div>
   </section>
 
   <footer>
-    <p>© 2026 Associação Cultural Frequência Livre • Projeto Académico D.W.B.D.</p>
+    <p>© 2026 Associação Cultural Frequência Livre • Sistema de Gestão de Festival (D.W.B.D.)</p>
   </footer>
 
-  <!-- Código JavaScript Funcional -->
+  <div id="toast">Operação concluída!</div>
+
   <script>
-    // 1. Função de Pesquisa em Tempo Real
-    function filterArtists() {
-      let input = document.getElementById('searchInput').value.toLowerCase();
-      let cards = document.getElementsByClassName('artist-card');
+    // Dados Iniciais do Festival
+    const artistasData = [
+      { nome: "The Soundwaves", estilo: "Rock", subestilo: "Indie Rock", palco: "Palco Principal", dia: "Sexta-feira", hora: "22:30", cor: "badge-purple" },
+      { nome: "DJ Neon Pulse", estilo: "Eletrónica", subestilo: "Tech House / EDM", palco: "Palco Eletrónica", dia: "Sábado", hora: "01:00", cor: "badge-cyan" },
+      { nome: "Rimas do Bairro", estilo: "Hip-Hop", subestilo: "Hip-Hop Tuga", palco: "Palco Principal", dia: "Sábado", hora: "21:30", cor: "badge-pink" },
+      { nome: "Acoustic Sunset", estilo: "Folk", subestilo: "Folk / World Music", palco: "Vila Cultural", dia: "Domingo", hora: "18:30", cor: "badge-green" },
+      { nome: "Voltage 404", estilo: "Rock", subestilo: "Alternative Rock", palco: "Palco Principal", dia: "Domingo", hora: "22:00", cor: "badge-purple" },
+      { nome: "SubBass Collective", estilo: "Eletrónica", subestilo: "Drum & Bass", palco: "Palco Eletrónica", dia: "Sexta-feira", hora: "02:00", cor: "badge-cyan" }
+    ];
+
+    const eventosData = {
+      "Sexta-feira": [
+        { hora: "16:00", titulo: "Abertura de Portas & Check-in Campismo", local: "Entrada Norte", tipo: "Logística" },
+        { hora: "18:30", titulo: "Workshop: Produção de Música Eletrónica", local: "Tenda Criativa", tipo: "Workshop" },
+        { hora: "22:30", titulo: "Concerto: The Soundwaves", local: "Palco Principal", tipo: "Concerto" },
+        { hora: "02:00", titulo: "Afterparty: SubBass Collective", local: "Palco Eletrónica", tipo: "DJ Set" }
+      ],
+      "Sábado": [
+        { hora: "15:00", titulo: "Feira de Artesanato & Gastronomia Local", local: "Vila Cultural", tipo: "Exposição" },
+        { hora: "17:30", titulo: "Batalha de Freestyle & Beatbox", local: "Arena Urbana", tipo: "Competição" },
+        { hora: "21:30", titulo: "Concerto: Rimas do Bairro", local: "Palco Principal", tipo: "Concerto" },
+        { hora: "01:00", titulo: "Espetáculo Laser: DJ Neon Pulse", local: "Palco Eletrónica", tipo: "Headliner" }
+      ],
+      "Domingo": [
+        { hora: "16:00", titulo: "Yoga & Relaxamento no Bosque", local: "Zona Verde", tipo: "Bem-estar" },
+        { hora: "18:30", titulo: "Sessão Acústica: Acoustic Sunset", local: "Vila Cultural", tipo: "Concerto" },
+        { hora: "22:00", titulo: "Encerramento Oficial: Voltage 404 + Fogo de Artifício", local: "Palco Principal", tipo: "Encerramento" }
+      ]
+    };
+
+    // Estado da Base de Dados (LocalStorage)
+    let db = JSON.parse(localStorage.getItem('festival_db_v1')) || {
+      activeUser: null,
+      users: [
+        { id: 1, nome: "João Baeta (Prof.)", email: "joao.baeta@escola.pt", telemovel: "910000000" }
+      ],
+      tickets: [
+        { id: "T1", nome: "Bilhete Diário", preco: 20, stock: 15, desc: "Acesso válido para 1 dia à escolha em todos os palcos." },
+        { id: "T2", nome: "Passe Geral (3 Dias)", preco: 45, stock: 4, desc: "Acesso total aos 3 dias de festival + zona de campismo." },
+        { id: "T3", nome: "Passe VIP Backstage", preco: 85, stock: 0, desc: "Acesso exclusivo aos bastidores, bar VIP e frente de palco." }
+      ],
+      bookings: [],
+      waitlist: [
+        { id: 1, utilizador: "Ana Martins", bilhete: "Passe VIP Backstage", data: "15/11/2026 21:10" }
+      ]
+    };
+
+    let currentDbTab = 'utilizadores';
+
+    function saveDb() {
+      localStorage.setItem('festival_db_v1', JSON.stringify(db));
+      updateCounters();
+      renderDbTable(currentDbTab);
+    }
+
+    function showToast(msg, isWarning = false) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.style.borderLeftColor = isWarning ? 'var(--warning)' : 'var(--success)';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // Renderizar Artistas
+    function filterArtists(genre, btn) {
+      if (btn) {
+        document.querySelectorAll('#genreFilters .pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const container = document.getElementById('artistsContainer');
+      const filtered = genre === 'todos' ? artistasData : artistasData.filter(a => a.estilo === genre);
       
-      for (let i = 0; i < cards.length; i++) {
-        let text = cards[i].getAttribute('data-name');
-        if (text.includes(input)) {
-          cards[i].style.display = "";
-        } else {
-          cards[i].style.display = "none";
+      container.innerHTML = filtered.map(a => `
+        <div class="card">
+          <div>
+            <span class="badge ${a.cor}">${a.subestilo}</span>
+            <h3 style="font-size:1.3rem; margin-bottom:0.3rem;">${a.nome}</h3>
+            <p style="color:var(--muted); font-size:0.9rem;">📍 ${a.palco}</p>
+          </div>
+          <div style="margin-top:1.2rem; padding-top:0.8rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; font-size:0.85rem;">
+            <span style="color:var(--accent); font-weight:700;">${a.dia}</span>
+            <span style="color:var(--muted);">⏰ ${a.hora}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Renderizar Eventos do Dia
+    function renderEvents(day, btn) {
+      if (btn) {
+        btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const container = document.getElementById('eventsContainer');
+      container.innerHTML = eventosData[day].map(ev => `
+        <div class="event-item">
+          <div style="display:flex; align-items:center; gap:1.2rem;">
+            <span class="event-time">⏰ ${ev.hora}</span>
+            <div>
+              <h4 style="font-size:1.05rem;">${ev.titulo}</h4>
+              <span style="color:var(--muted); font-size:0.85rem;">📍 ${ev.local}</span>
+            </div>
+          </div>
+          <span class="badge badge-cyan" style="margin:0;">${ev.tipo}</span>
+        </div>
+      `).join('');
+    }
+
+    // Renderizar Bilhetes e Fila de Espera
+    function renderTickets() {
+      const container = document.getElementById('ticketsContainer');
+      container.innerHTML = db.tickets.map(t => {
+        const esgotado = t.stock <= 0;
+        return `
+          <div class="card" style="${esgotado ? 'border-color: rgba(245, 158, 11, 0.35);' : ''}">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                <span class="badge ${esgotado ? 'badge-red' : 'badge-green'}" style="margin:0;">
+                  ${esgotado ? '❌ Esgotado' : `✅ ${t.stock} disponíveis`}
+                </span>
+                <span style="font-size:1.6rem; font-weight:800; color:var(--accent);">${t.preco}€</span>
+              </div>
+              <h3 style="font-size:1.3rem; margin-bottom:0.5rem;">${t.nome}</h3>
+              <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">${t.desc}</p>
+            </div>
+            ${esgotado 
+              ? `<button class="btn btn-waitlist" onclick="joinWaitlist('${t.id}')">⏳ Entrar na Fila de Espera</button>`
+              : `<button class="btn btn-buy" onclick="buyTicket('${t.id}')">🎟️ Marcar / Comprar Bilhete</button>`
+            }
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Cadastro de Utilizador
+    function registerUser(e) {
+      e.preventDefault();
+      const nome = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const telemovel = document.getElementById('regPhone').value.trim();
+
+      const newUser = { id: db.users.length + 1, nome, email, telemovel };
+      db.users.push(newUser);
+      db.activeUser = newUser;
+
+      document.getElementById('activeUserDisplay').innerText = `👤 ${nome}`;
+      e.target.reset();
+      saveDb();
+      showToast(`Conta criada para ${nome}! Já podes reservar bilhetes.`);
+    }
+
+    // Comprar / Marcar Bilhete
+    function buyTicket(ticketId) {
+      if (!db.activeUser) {
+        showToast("⚠️ Faz primeiro o teu cadastro na secção 'Cadastro'!", true);
+        document.getElementById('cadastro').scrollIntoView();
+        return;
+      }
+      const ticket = db.tickets.find(t => t.id === ticketId);
+      if (ticket && ticket.stock > 0) {
+        ticket.stock -= 1;
+        db.bookings.push({
+          codigo: "FRQ-" + Math.floor(1000 + Math.random() * 9000),
+          utilizador: db.activeUser.nome,
+          email: db.activeUser.email,
+          bilhete: ticket.nome,
+          valor: ticket.preco + "€",
+          data: new Date().toLocaleString('pt-PT')
+        });
+        saveDb();
+        renderTickets();
+        showToast(`Bilhete "${ticket.nome}" reservado com sucesso!`);
+      }
+    }
+
+    // Entrar na Fila de Espera
+    function joinWaitlist(ticketId) {
+      if (!db.activeUser) {
+        showToast("⚠️ Cadastra-te primeiro para entrares na fila de espera!", true);
+        document.getElementById('cadastro').scrollIntoView();
+        return;
+      }
+      const ticket = db.tickets.find(t => t.id === ticketId);
+      db.waitlist.push({
+        id: db.waitlist.length + 1,
+        utilizador: db.activeUser.nome,
+        bilhete: ticket.nome,
+        data: new Date().toLocaleString('pt-PT')
+      });
+      saveDb();
+      showToast(`Adicionado à fila de espera (Posição #${db.waitlist.length})!`, true);
+    }
+
+    // Visualizador da Base de Dados
+    function switchDbTab(tab, btn) {
+      currentDbTab = tab;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderDbTable(tab);
+    }
+
+    function renderDbTable(tab) {
+      const out = document.getElementById('dbTableOutput');
+      if (tab === 'utilizadores') {
+        out.innerHTML = `
+          <table>
+            <tr><th>id_utilizador (PK)</th><th>nome_completo</th><th>email</th><th>telemovel</th></tr>
+            ${db.users.map(u => `<tr><td>#${u.id}</td><td>${u.nome}</td><td>${u.email}</td><td>${u.telemovel}</td></tr>`).join('')}
+          </table>`;
+      } else if (tab === 'reservas') {
+        if (db.bookings.length === 0) {
+          out.innerHTML = `<p style="color:var(--muted); text-align:center; padding:1rem;">Ainda não existem bilhetes comprados. Experimenta reservar um acima!</p>`;
+          return;
         }
+        out.innerHTML = `
+          <table>
+            <tr><th>codigo_reserva (PK)</th><th>utilizador</th><th>tipo_bilhete</th><th>valor_pago</th><th>data_hora</th></tr>
+            ${db.bookings.map(b => `<tr><td>${b.codigo}</td><td>${b.utilizador}</td><td>${b.bilhete}</td><td>${b.valor}</td><td>${b.data}</td></tr>`).join('')}
+          </table>`;
+      } else if (tab === 'espera') {
+        out.innerHTML = `
+          <table>
+            <tr><th>posicao_fila</th><th>utilizador</th><th>bilhete_pretendido</th><th>data_pedido</th></tr>
+            ${db.waitlist.map((w, idx) => `<tr><td>#${idx + 1}</td><td>${w.utilizador}</td><td>${w.bilhete}</td><td>${w.data}</td></tr>`).join('')}
+          </table>`;
       }
     }
 
-    // 2. Calculadora de Bilhetes Dinâmica
-    function calculateTotal() {
-      let price = parseFloat(document.getElementById('ticketType').value);
-      let qty = parseInt(document.getElementById('ticketQty').value);
-      if (isNaN(qty) || qty < 1) qty = 1;
-      let total = price * qty;
-      document.getElementById('totalDisplay').innerText = "Total: " + total + " €";
+    function updateCounters() {
+      document.getElementById('countUsers').innerText = db.users.length;
+      document.getElementById('countBookings').innerText = db.bookings.length;
+      document.getElementById('countWaitlist').innerText = db.waitlist.length;
+      if (db.activeUser) {
+        document.getElementById('activeUserDisplay').innerText = `👤 ${db.activeUser.nome}`;
+      }
     }
 
-    // 3. Alternar Abas da Base de Dados
-    function switchTab(evt, tabId) {
-      let containers = document.getElementsByClassName('db-table-container');
-      for (let i = 0; i < containers.length; i++) {
-        containers[i].classList.remove('active');
-      }
-
-      let buttons = document.getElementsByClassName('tab-btn');
-      for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove('active');
-      }
-
-      document.getElementById(tabId).classList.add('active');
-      evt.currentTarget.classList.add('active');
+    function resetDatabase() {
+      localStorage.removeItem('festival_db_v1');
+      location.reload();
     }
+
+    // Inicializar página
+    filterArtists('todos');
+    renderEvents('Sexta-feira');
+    renderTickets();
+    updateCounters();
+    renderDbTable('utilizadores');
   </script>
-
 </body>
 </html>
