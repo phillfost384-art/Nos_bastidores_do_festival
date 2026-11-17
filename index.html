@@ -158,6 +158,7 @@
       top: 0;
       right: -420px;
       width: 400px;
+      max-width: 90vw;
       height: 100%;
       background: var(--surface);
       border-left: 1px solid var(--border);
@@ -211,7 +212,7 @@
 
     .hero p {
       color: var(--muted);
-      max-width: 600px;
+      max-width: 620px;
       margin: 0 auto 2rem;
       font-size: 1.1rem;
     }
@@ -288,8 +289,25 @@
     }
     .badge-purple { background: rgba(124,58,237,0.18); color: #c4b5fd; }
     .badge-cyan { background: rgba(6,182,212,0.18); color: #67e8f9; }
+    .badge-pink { background: rgba(236,72,153,0.18); color: #f9a8d4; }
     .badge-green { background: rgba(16,185,129,0.18); color: #6ee7b7; }
     .badge-red { background: rgba(239,68,68,0.18); color: #fca5a5; }
+
+    /* Eventos do Dia */
+    .event-list { display: flex; flex-direction: column; gap: 1rem; }
+    .event-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .event-item:hover { border-color: rgba(6, 182, 212, 0.35); }
 
     /* Formulários */
     .form-group { margin-bottom: 1.2rem; }
@@ -330,7 +348,7 @@
 </head>
 <body>
 
-  <!-- 1. MODAL DE AUTENTICAÇÃO OBRIGATÓRIA (Bloqueia a página até criar conta) -->
+  <!-- 1. MODAL DE AUTENTICAÇÃO OBRIGATÓRIA -->
   <div id="authModal">
     <div class="modal-box" id="authBoxContent">
       <div style="text-align:center; margin-bottom:1.5rem;">
@@ -355,11 +373,11 @@
         <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Continuar com Registo</button>
       </form>
 
-      <!-- Passo 2: Confirmação por Código de Email (Oculto inicialmente) -->
+      <!-- Passo 2: Confirmação por Código de Email -->
       <form id="verifyForm" style="display:none;" onsubmit="handleVerify(event)">
         <div style="background: rgba(6,182,212,0.1); border:1px solid rgba(6,182,212,0.3); padding:1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#67e8f9;">
-          📧 <strong>Simulação de Email:</strong> Enviámos um código de confirmação para o seu email.<br>
-          Código de acesso simulado: <strong id="simulatedCodeDisplay" style="color:white; font-size:1rem;"></strong>
+          📧 <strong>Confirmação de Email:</strong> Enviámos um código de segurança para o seu email.<br>
+          Código de ativação: <strong id="simulatedCodeDisplay" style="color:white; font-size:1.1rem; letter-spacing:2px;"></strong>
         </div>
         <div class="form-group">
           <label>Insira o Código de Verificação</label>
@@ -375,12 +393,13 @@
     <div class="brand">⚡ FREQUÊNCIA LIVRE</div>
     <ul class="nav-links">
       <li><a href="#artistas">Lineup & Artistas</a></li>
+      <li><a href="#eventos">Programa por Dia</a></li>
       <li><a href="#bilhetes">Bilheteira</a></li>
       <li><a href="#admin" id="adminNavLink" style="display:none; color:var(--accent);">⚙️ Painel Admin</a></li>
     </ul>
     <div class="nav-buttons">
       <button class="icon-btn" onclick="toggleSidebar()">
-        🛒 <span id="cartCountBadge" style="background:var(--primary); color:white; padding:0.1rem 0.4rem; border-radius:50px; font-size:0.75rem;">0</span>
+        🛒 <span id="cartCountBadge" style="background:var(--primary); color:white; padding:0.1rem 0.45rem; border-radius:50px; font-size:0.75rem;">0</span>
       </button>
       <button class="icon-btn" onclick="toggleSidebar()">
         👤 <span id="navUserName">Conta</span>
@@ -430,53 +449,74 @@
 
   <!-- 4. HERO SECTION -->
   <section class="hero">
-    <span style="display:inline-block; padding:0.3rem 0.9rem; border-radius:50px; background:rgba(6,182,212,0.1); border:1px solid rgba(6,182,212,0.3); color:var(--accent); font-size:0.8rem; font-weight:700; margin-bottom:1rem;">Gestão Cultural Profissional</span>
+    <span style="display:inline-block; padding:0.35rem 1rem; border-radius:50px; background:rgba(6,182,212,0.12); border:1px solid rgba(6,182,212,0.35); color:var(--accent); font-size:0.8rem; font-weight:700; margin-bottom:1rem;">Temporada 2027 • 4 Dias de Música & Cultura</span>
     <h1>NOS BASTIDORES<br><span>DO FESTIVAL</span></h1>
-    <p>Plataforma avançada para controlo de programação artística, bilheteira inteligente, lista de espera em tempo real e preferências de espetadores.</p>
+    <p>Explore a nova edição de 4 dias com mais de 10 artistas confirmados, atividades paralelas, bilheteira atualizada e fila de espera inteligente.</p>
   </section>
 
   <!-- 5. ARTISTAS E LOCAIS (LINEUP) -->
   <section id="artistas" class="section">
     <div class="section-header">
       <div>
-        <h2>🎸 Programação & Artistas</h2>
-        <p>Explore o alinhamento de artistas, palcos e géneros musicais</p>
+        <h2>🎸 Lineup & Artistas (2027)</h2>
+        <p>Filtre por género musical para explorar todos os artistas confirmados</p>
       </div>
       <div class="filter-bar" id="genreFilters" style="margin-bottom:0;">
         <button class="pill-btn active" onclick="filterArtists('todos', this)">Todos</button>
         <button class="pill-btn" onclick="filterArtists('Rock', this)">Rock</button>
         <button class="pill-btn" onclick="filterArtists('Eletrónica', this)">Eletrónica</button>
         <button class="pill-btn" onclick="filterArtists('Hip-Hop', this)">Hip-Hop</button>
+        <button class="pill-btn" onclick="filterArtists('Pop & Indie', this)">Pop & Indie</button>
+        <button class="pill-btn" onclick="filterArtists('Folk & Acústico', this)">Folk & Acústico</button>
       </div>
     </div>
 
     <div class="grid-3" id="artistsContainer" style="margin-top:2rem;"></div>
   </section>
 
-  <!-- 6. BILHETEIRA E GESTÃO DE STOCK -->
+  <!-- 6. PROGRAMA POR DIA (4 DIAS DE FESTIVAL) -->
+  <section id="eventos" class="section">
+    <div class="section-header">
+      <div>
+        <h2>📅 Programação & Eventos por Dia</h2>
+        <p>Consulte os horários detalhados para os 4 dias de festival (15 a 18 de Julho de 2027)</p>
+      </div>
+      <div class="filter-bar" id="dayFilters" style="margin-bottom:0;">
+        <button class="pill-btn active" onclick="renderEvents('Dia 1 • Quinta (15 Jul)', this)">Dia 1 • Quinta</button>
+        <button class="pill-btn" onclick="renderEvents('Dia 2 • Sexta (16 Jul)', this)">Dia 2 • Sexta</button>
+        <button class="pill-btn" onclick="renderEvents('Dia 3 • Sábado (17 Jul)', this)">Dia 3 • Sábado</button>
+        <button class="pill-btn" onclick="renderEvents('Dia 4 • Domingo (18 Jul)', this)">Dia 4 • Domingo</button>
+      </div>
+    </div>
+
+    <div class="event-list" id="eventsContainer"></div>
+  </section>
+
+  <!-- 7. BILHETEIRA E GESTÃO DE STOCK -->
   <section id="bilhetes" class="section">
     <div class="section-header">
       <div>
-        <h2>🎟️ Bilheteira & Fila de Espera</h2>
-        <p>Efetue reservas diretas ou entre na fila de espera automatizada</p>
+        <h2>🎟️ Bilheteira Oficial & Fila de Espera</h2>
+        <p>Novos lotes disponíveis! Garanta já o seu passe ou entre na lista de espera</p>
       </div>
     </div>
 
     <div class="grid-3" id="ticketsContainer"></div>
   </section>
 
-  <!-- 7. PAINEL DE ADMINISTRAÇÃO (Exclusivo para gestão de dados) -->
-  <section id="admin" class="section" style="display:none; background: rgba(16,21,34,0.4); border-top:1px solid var(--border);">
+  <!-- 8. PAINEL DE ADMINISTRAÇÃO -->
+  <section id="admin" class="section" style="display:none; background: rgba(16,21,34,0.4); border-top:1px solid var(--border); border-radius:16px;">
     <div class="section-header">
       <div>
         <h2>⚙️ Painel de Administração</h2>
-        <p>Adicione novos artistas, palcos e festivais à base de dados do sistema</p>
+        <p>Adicione novos artistas, eventos diários ou reponha stock de bilhetes</p>
       </div>
+      <button class="btn btn-outline" style="border-color:var(--accent); color:var(--accent);" onclick="resetDefaultData()">🔄 Repor Cartaz & Stock 2027</button>
     </div>
 
-    <div class="grid-2">
+    <div class="grid-3">
       <div class="card">
-        <h3 style="margin-bottom:1.2rem; font-size:1.2rem;">Adicionar Novo Artista</h3>
+        <h3 style="margin-bottom:1.2rem; font-size:1.15rem;">Adicionar Novo Artista</h3>
         <form onsubmit="addArtist(event)">
           <div class="form-group">
             <label>Nome do Artista / Banda</label>
@@ -488,67 +528,142 @@
               <option value="Rock">Rock</option>
               <option value="Eletrónica">Eletrónica</option>
               <option value="Hip-Hop">Hip-Hop</option>
-              <option value="Folk">Folk</option>
+              <option value="Pop & Indie">Pop & Indie</option>
+              <option value="Folk & Acústico">Folk & Acústico</option>
             </select>
           </div>
           <div class="form-group">
             <label>Palco Atribuído</label>
             <input type="text" id="admArtistStage" class="form-control" placeholder="Ex: Palco Principal" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Registar Artista na Base de Dados</button>
+          <div class="form-group">
+            <label>Dia e Hora</label>
+            <input type="text" id="admArtistTime" class="form-control" placeholder="Ex: Sábado (17 Jul) • 23:00" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Registar Artista</button>
         </form>
       </div>
 
       <div class="card">
-        <h3 style="margin-bottom:1.2rem; font-size:1.2rem;">Adicionar Novo Tipo de Bilhete</h3>
+        <h3 style="margin-bottom:1.2rem; font-size:1.15rem;">Adicionar Evento ao Programa</h3>
+        <form onsubmit="addEventItem(event)">
+          <div class="form-group">
+            <label>Dia do Festival</label>
+            <select id="admEventDay" class="form-control">
+              <option value="Dia 1 • Quinta (15 Jul)">Dia 1 • Quinta (15 Jul)</option>
+              <option value="Dia 2 • Sexta (16 Jul)">Dia 2 • Sexta (16 Jul)</option>
+              <option value="Dia 3 • Sábado (17 Jul)">Dia 3 • Sábado (17 Jul)</option>
+              <option value="Dia 4 • Domingo (18 Jul)">Dia 4 • Domingo (18 Jul)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Título do Evento</label>
+            <input type="text" id="admEventTitle" class="form-control" placeholder="Ex: Workshop de Sintetizadores" required>
+          </div>
+          <div class="form-group">
+            <label>Local / Palco</label>
+            <input type="text" id="admEventPlace" class="form-control" placeholder="Ex: Vila Cultural" required>
+          </div>
+          <div class="form-group">
+            <label>Hora</label>
+            <input type="text" id="admEventHour" class="form-control" placeholder="Ex: 17:30" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Adicionar ao Dia</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:1.2rem; font-size:1.15rem;">Adicionar Tipo de Bilhete</h3>
         <form onsubmit="addTicketType(event)">
           <div class="form-group">
             <label>Nome do Passe / Bilhete</label>
-            <input type="text" id="admTicketName" class="form-control" placeholder="Ex: Passe VIP 3 Dias" required>
+            <input type="text" id="admTicketName" class="form-control" placeholder="Ex: Passe Campismo 4 Dias" required>
           </div>
           <div class="form-group">
             <label>Preço (€)</label>
-            <input type="number" id="admTicketPrice" class="form-control" placeholder="50" required>
+            <input type="number" id="admTicketPrice" class="form-control" placeholder="55" required>
           </div>
           <div class="form-group">
             <label>Stock Inicial Disponível</label>
-            <input type="number" id="admTicketStock" class="form-control" placeholder="10" required>
+            <input type="number" id="admTicketStock" class="form-control" placeholder="25" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Adicionar Bilhete à Venda</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Adicionar Bilhete</button>
         </form>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 Associação Cultural Frequência Livre • Festival Management System</p>
+    <p>© 2027 Associação Cultural Frequência Livre • Festival Management System</p>
   </footer>
 
   <div id="toast">Operação efetuada com sucesso!</div>
 
   <script>
-    // Base de Dados Global do Sistema (LocalStorage)
-    let appDb = JSON.parse(localStorage.getItem('frequencia_livre_pro_db')) || {
+    // Nova chave 'frequencia_livre_2027_v2' para renovar automaticamente datas antigas e stock esgotado
+    let appDb = JSON.parse(localStorage.getItem('frequencia_livre_2027_v2')) || {
       currentUser: null,
       tempRegData: null,
       generatedCode: null,
       artists: [
-        { name: "The Soundwaves", genre: "Rock", stage: "Palco Principal", time: "22:30" },
-        { name: "DJ Neon Pulse", genre: "Eletrónica", stage: "Palco Eletrónica", time: "01:00" },
-        { name: "Rimas do Bairro", genre: "Hip-Hop", stage: "Vila Cultural", time: "21:30" }
+        { name: "The Soundwaves", genre: "Rock", stage: "Palco Principal", time: "Quinta (15 Jul) • 22:30" },
+        { name: "Aurora Boreal", genre: "Pop & Indie", stage: "Palco Miradouro", time: "Quinta (15 Jul) • 20:30" },
+        { name: "DJ Neon Pulse", genre: "Eletrónica", stage: "Palco Eletrónica", time: "Sexta (16 Jul) • 01:30" },
+        { name: "Voltage 404", genre: "Rock", stage: "Palco Principal", time: "Sexta (16 Jul) • 23:00" },
+        { name: "Rimas do Bairro", genre: "Hip-Hop", stage: "Arena Urbana", time: "Sábado (17 Jul) • 21:30" },
+        { name: "Killa Beat & Crew", genre: "Hip-Hop", stage: "Arena Urbana", time: "Sábado (17 Jul) • 23:30" },
+        { name: "SubBass Collective", genre: "Eletrónica", stage: "Palco Eletrónica", time: "Sábado (17 Jul) • 02:00" },
+        { name: "Acoustic Sunset", genre: "Folk & Acústico", stage: "Vila Cultural", time: "Domingo (18 Jul) • 18:30" },
+        { name: "Maré Viva", genre: "Pop & Indie", stage: "Palco Principal", time: "Domingo (18 Jul) • 21:30" }
       ],
+      events: {
+        "Dia 1 • Quinta (15 Jul)": [
+          { hour: "15:00", title: "Abertura Oficial do Recinto & Check-in Campismo", place: "Entrada Norte", type: "Logística" },
+          { hour: "18:00", title: "Sunset DJ Warm-up & Boas-vindas", place: "Vila Cultural", type: "DJ Set" },
+          { hour: "20:30", title: "Concerto: Aurora Boreal", place: "Palco Miradouro", type: "Concerto" },
+          { hour: "22:30", title: "Headliner: The Soundwaves", place: "Palco Principal", type: "Concerto" }
+        ],
+        "Dia 2 • Sexta (16 Jul)": [
+          { hour: "16:30", title: "Workshop: Produção de Música Eletrónica & Sintetizadores", place: "Tenda Criativa", type: "Workshop" },
+          { hour: "19:30", title: "Mostra de Arte Urbana & Graffiti ao Vivo", place: "Arena Urbana", type: "Exposição" },
+          { hour: "23:00", title: "Concerto: Voltage 404", place: "Palco Principal", type: "Concerto" },
+          { hour: "01:30", title: "Espetáculo Laser: DJ Neon Pulse", place: "Palco Eletrónica", type: "Eletrónica" }
+        ],
+        "Dia 3 • Sábado (17 Jul)": [
+          { hour: "15:00", title: "Feira de Artesanato, Vinil & Gastronomia Local", place: "Vila Cultural", type: "Festividade" },
+          { hour: "18:00", title: "Batalha Nacional de Freestyle & Beatbox", place: "Arena Urbana", type: "Competição" },
+          { hour: "21:30", title: "Concerto: Rimas do Bairro", place: "Arena Urbana", type: "Concerto" },
+          { hour: "23:30", title: "Concerto: Killa Beat & Crew", place: "Arena Urbana", type: "Concerto" },
+          { hour: "02:00", title: "Rave Nocturna: SubBass Collective", place: "Palco Eletrónica", type: "Afterparty" }
+        ],
+        "Dia 4 • Domingo (18 Jul)": [
+          { hour: "15:30", title: "Sessão de Yoga & Relaxamento no Bosque", place: "Zona Verde", type: "Bem-estar" },
+          { hour: "18:30", title: "Sessão Acústica ao Pôr-do-Sol: Acoustic Sunset", place: "Vila Cultural", type: "Concerto" },
+          { hour: "21:30", title: "Grande Concerto de Encerramento: Maré Viva", place: "Palco Principal", type: "Concerto" },
+          { hour: "23:30", title: "Espetáculo Pirotécnico & Despedida 2027", place: "Palco Principal", type: "Encerramento" }
+        ]
+      },
       tickets: [
-        { id: "t1", name: "Bilhete Diário", price: 20, stock: 12 },
-        { id: "t2", name: "Passe Geral (3 Dias)", price: 45, stock: 2 },
-        { id: "t3", name: "Passe VIP Backstage", price: 85, stock: 0 }
+        { id: "t1", name: "Bilhete Diário (1 Dia)", price: 22, stock: 35, desc: "Acesso válido para qualquer um dos 4 dias do festival (15 a 18 Julho 2027)." },
+        { id: "t2", name: "Passe Fim-de-Semana (Sex + Sáb)", price: 40, stock: 20, desc: "Acesso aos dois dias principais de concertos noturnos e eletrónica." },
+        { id: "t3", name: "Passe Geral (4 Dias + Campismo)", price: 65, stock: 18, desc: "Acesso completo aos 4 dias de festival (15 a 18 Julho) + zona de campismo." },
+        { id: "t4", name: "Passe VIP Backstage (4 Dias)", price: 110, stock: 5, desc: "Acesso exclusivo aos bastidores, zona frente de palco e bar VIP." },
+        { id: "t5", name: "Lote Early Bird (Promocional)", price: 35, stock: 0, desc: "Lote promocional esgotado — entre na fila de espera caso surjam desistências." }
       ],
       bookings: [],
       waitlist: []
     };
 
+    let currentDayTab = "Dia 1 • Quinta (15 Jul)";
+
     function saveAppData() {
-      localStorage.setItem('frequencia_livre_pro_db', JSON.stringify(appDb));
+      localStorage.setItem('frequencia_livre_2027_v2', JSON.stringify(appDb));
       renderUI();
+    }
+
+    function resetDefaultData() {
+      localStorage.removeItem('frequencia_livre_2027_v2');
+      location.reload();
     }
 
     function showToast(msg, isWarning = false) {
@@ -559,14 +674,14 @@
       setTimeout(() => t.classList.remove('show'), 3500);
     }
 
-    // Controlo de Autenticação e Código por "Email"
+    // Autenticação e Confirmação por Email
     function handleRegister(e) {
       e.preventDefault();
       const name = document.getElementById('authName').value.trim();
       const email = document.getElementById('authEmail').value.trim();
       const pass = document.getElementById('authPass').value.trim();
 
-      const code = Math.floor(1000 + Math.random() * 9000).toString();
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
       appDb.tempRegData = { name, email, pass };
       appDb.generatedCode = code;
 
@@ -598,13 +713,11 @@
       location.reload();
     }
 
-    // Controlo da Gaveta Lateral (Sidebar)
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebarDrawer');
-      sidebar.classList.toggle('open');
+      document.getElementById('sidebarDrawer').classList.toggle('open');
     }
 
-    // Gestão de Artistas
+    // Filtro de Artistas
     function filterArtists(genre, btn) {
       if (btn) {
         document.querySelectorAll('#genreFilters .pill-btn').forEach(b => b.classList.remove('active'));
@@ -621,8 +734,31 @@
             <p style="color:var(--muted); font-size:0.9rem;">📍 ${a.stage}</p>
           </div>
           <div style="margin-top:1.2rem; padding-top:0.8rem; border-top:1px solid var(--border); font-size:0.85rem; color:var(--accent);">
-            ⏰ Horário: ${a.time}
+            ⏰ ${a.time}
           </div>
+        </div>
+      `).join('');
+    }
+
+    // Renderizar Eventos por Dia
+    function renderEvents(day, btn) {
+      currentDayTab = day;
+      if (btn) {
+        document.querySelectorAll('#dayFilters .pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const container = document.getElementById('eventsContainer');
+      const list = appDb.events[day] || [];
+      container.innerHTML = list.map(ev => `
+        <div class="event-item">
+          <div style="display:flex; align-items:center; gap:1.2rem;">
+            <span style="font-weight:800; color:var(--accent); min-width:75px;">⏰ ${ev.hour}</span>
+            <div>
+              <h4 style="font-size:1.05rem;">${ev.title}</h4>
+              <span style="color:var(--muted); font-size:0.85rem;">📍 ${ev.place}</span>
+            </div>
+          </div>
+          <span class="badge badge-cyan" style="margin:0;">${ev.type}</span>
         </div>
       `).join('');
     }
@@ -640,7 +776,7 @@
                 <span style="font-size:1.5rem; font-weight:800; color:var(--accent);">${t.price}€</span>
               </div>
               <h3 style="font-size:1.25rem; margin-bottom:0.5rem;">${t.name}</h3>
-              <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">Acesso oficial aos recintos do festival com validação digital.</p>
+              <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">${t.desc || 'Acesso oficial aos recintos do festival com validação digital.'}</p>
             </div>
             ${soldOut 
               ? `<button class="btn" style="background:rgba(245,158,11,0.15); color:var(--warning); border:1px solid rgba(245,158,11,0.4); width:100%;" onclick="joinWaitlist('${t.name}')">⏳ Entrar na Fila de Espera</button>`
@@ -659,7 +795,7 @@
           user: appDb.currentUser.name,
           item: ticket.name,
           price: ticket.price + "€",
-          code: "FL-" + Math.floor(1000 + Math.random() * 9000)
+          code: "FL27-" + Math.floor(1000 + Math.random() * 9000)
         });
         saveAppData();
         showToast(`Bilhete "${ticket.name}" reservado com sucesso!`);
@@ -676,24 +812,44 @@
       showToast(`Adicionado à fila de espera para ${ticketName}!`, true);
     }
 
-    // Painel Admin (Adicionar dados)
+    // Painel Admin
     function addArtist(e) {
       e.preventDefault();
-      const name = document.getElementById('admArtistName').value;
-      const genre = document.getElementById('admArtistGenre').value;
-      const stage = document.getElementById('admArtistStage').value;
-      appDb.artists.push({ name, genre, stage, time: "21:00" });
+      appDb.artists.push({
+        name: document.getElementById('admArtistName').value,
+        genre: document.getElementById('admArtistGenre').value,
+        stage: document.getElementById('admArtistStage').value,
+        time: document.getElementById('admArtistTime').value
+      });
       saveAppData();
       e.target.reset();
-      showToast("Artista adicionado ao sistema!");
+      showToast("Artista adicionado ao cartaz 2027!");
+    }
+
+    function addEventItem(e) {
+      e.preventDefault();
+      const day = document.getElementById('admEventDay').value;
+      appDb.events[day].push({
+        hour: document.getElementById('admEventHour').value,
+        title: document.getElementById('admEventTitle').value,
+        place: document.getElementById('admEventPlace').value,
+        type: "Evento"
+      });
+      saveAppData();
+      e.target.reset();
+      renderEvents(day);
+      showToast("Evento adicionado ao programa!");
     }
 
     function addTicketType(e) {
       e.preventDefault();
-      const name = document.getElementById('admTicketName').value;
-      const price = parseFloat(document.getElementById('admTicketPrice').value);
-      const stock = parseInt(document.getElementById('admTicketStock').value);
-      appDb.tickets.push({ id: "t" + (appDb.tickets.length + 1), name, price, stock });
+      appDb.tickets.push({
+        id: "t" + (appDb.tickets.length + 1),
+        name: document.getElementById('admTicketName').value,
+        price: parseFloat(document.getElementById('admTicketPrice').value),
+        stock: parseInt(document.getElementById('admTicketStock').value),
+        desc: "Novo lote adicionado pela organização."
+      });
       saveAppData();
       e.target.reset();
       showToast("Novo tipo de bilhete criado!");
@@ -711,40 +867,37 @@
         document.getElementById('drawerName').innerText = appDb.currentUser.name;
         document.getElementById('drawerEmail').innerText = appDb.currentUser.email;
 
-        // Se for o administrador principal, mostra o painel admin
         if (appDb.currentUser.email.includes('admin') || appDb.currentUser.name.toLowerCase().includes('admin')) {
           document.getElementById('admin').style.display = 'block';
           document.getElementById('adminNavLink').style.display = 'block';
         }
 
-        // Atualizar lista de reservas no Drawer
-        const bookingsList = document.getElementById('drawerBookingsList');
-        bookingsList.innerHTML = appDb.bookings.length === 0 
+        const userBookings = appDb.bookings.filter(b => b.user === appDb.currentUser.name);
+        document.getElementById('drawerBookingsList').innerHTML = userBookings.length === 0 
           ? `<p style="color:var(--muted); font-size:0.85rem;">Ainda sem reservas.</p>`
-          : appDb.bookings.filter(b => b.user === appDb.currentUser.name).map(b => `
-              <div style="background:var(--bg); padding:0.6rem; border-radius:6px; font-size:0.85rem;">
-                <strong>${b.item}</strong><br><span style="color:var(--accent);">Ref: ${b.code}</span>
+          : userBookings.map(b => `
+              <div style="background:var(--bg); padding:0.7rem; border-radius:8px; border:1px solid var(--border); font-size:0.85rem;">
+                <strong>${b.item}</strong> (${b.price})<br><span style="color:var(--accent);">Ref: ${b.code}</span>
               </div>
             `).join('');
 
-        // Atualizar fila de espera no Drawer
-        const waitlistList = document.getElementById('drawerWaitlistList');
-        waitlistList.innerHTML = appDb.waitlist.length === 0
+        const userWaitlist = appDb.waitlist.filter(w => w.user === appDb.currentUser.name);
+        document.getElementById('drawerWaitlistList').innerHTML = userWaitlist.length === 0
           ? `<p style="color:var(--muted); font-size:0.85rem;">Nenhuma fila de espera.</p>`
-          : appDb.waitlist.filter(w => w.user === appDb.currentUser.name).map(w => `
-              <div style="background:var(--bg); padding:0.6rem; border-radius:6px; font-size:0.85rem;">
-                <strong>${w.item}</strong><br><span style="color:var(--warning);">Em espera</span>
+          : userWaitlist.map(w => `
+              <div style="background:var(--bg); padding:0.7rem; border-radius:8px; border:1px solid var(--border); font-size:0.85rem;">
+                <strong>${w.item}</strong><br><span style="color:var(--warning);">Em fila de espera</span>
               </div>
             `).join('');
 
-        document.getElementById('cartCountBadge').innerText = appDb.bookings.filter(b => b.user === appDb.currentUser.name).length;
+        document.getElementById('cartCountBadge').innerText = userBookings.length;
       }
 
       filterArtists('todos');
+      renderEvents(currentDayTab);
       renderTickets();
     }
 
-    // Inicializar
     renderUI();
   </script>
 </body>
